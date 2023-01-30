@@ -33,9 +33,17 @@ class RapatController extends Controller
             'selesai' => 'required',
         ]);
 
+        // Generate kode secara increment
+        $rapat = Rapat::orderBy('id', 'DESC')->get()->first();
+        $rapatId = 1;
+        if ($rapat != null) {
+            $rapatId = $rapat->id;
+            $rapatId++;
+        }
+
         Rapat::create([
             'jenis_rapat_id' => $request->jenis_rapat,
-            'kode' => 'R.' . str_pad(rand(1, 9999), 4, '0', STR_PAD_LEFT) . '.' . date('Y'),
+            'kode' => 'R.' . str_pad($rapatId, 4, '0', STR_PAD_LEFT) . '.' . date('Y'),
             'nama' => Str::title($request->nama),
             'slug' => Str::slug($request->nama),
             'ruang' => ucfirst($request->ruang),
@@ -71,6 +79,7 @@ class RapatController extends Controller
             'tanggal' => 'required',
             'mulai' => 'required',
             'selesai' => 'required',
+            'status' => 'required',
         ]);
 
         $rapat->update([
@@ -83,6 +92,7 @@ class RapatController extends Controller
             'tanggal' => $request->tanggal,
             'mulai' => $request->mulai,
             'selesai' => $request->selesai,
+            'status' => $request->status,
         ]);
         return back()->with('success', 'Data rapat berhasil diupdate.');
     }

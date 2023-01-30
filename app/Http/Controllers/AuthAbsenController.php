@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Divisi;
 use App\Models\Peserta;
 use App\Models\Rapat;
 use Illuminate\Http\Request;
@@ -13,6 +14,7 @@ class AuthAbsenController extends Controller
     {
         return view('auth.absen', [
             'title' => 'Absensi',
+            'divisi' => Divisi::all(),
         ]);
     }
 
@@ -26,16 +28,20 @@ class AuthAbsenController extends Controller
             $tgl_skrng = date('Y-m-d');
             $jam_skrng = date('H:i');
 
+            if ($rapat->status == 'belum dimulai') {
+                return back()->with('info', "\"$rapat->nama\" belum dimulai.")->withInput();
+            }
+
             if ($tgl_skrng >= $rapat->tanggal && $jam_skrng >= $rapat->mulai) {
                 $rules = [
                     'kode' => 'required',
                     'nama' => 'required',
                     'nip' => 'required',
-                    'jabatan' => 'required',
                 ];
 
-                if ($request->keterangan == null) {
-                    $rules['keterangan_lain'] = 'required';
+                $jabatan = $request->jabatan;
+                if ($request->jabatan_lain != null) {
+                    $jabatan = $request->jabatan_lain;
                 }
 
                 $request->validate($rules);
@@ -54,14 +60,14 @@ class AuthAbsenController extends Controller
                     'rapat_id' => $rapatId,
                     'nama' => ucfirst($request->nama),
                     'nip' => $request->nip,
-                    'jabatan' => ucfirst($request->jabatan),
+                    'jabatan' => strtoupper($jabatan),
                     'keterangan' => $keterangan,
                 ]);
 
                 return back()->with('success', "Selamat Anda sudah melakukan presensi pada agenda \"$rapat->nama\".");
             }
 
-            return back()->with('danger', "Belum dapat melakukan presensi. Rapat dimulai pukul \"<b>$rapat->mulai - $rapat->selesai WITA</b>\".")->withInput();
+            return back()->with('info', "Belum dapat melakukan presensi. Rapat dimulai pukul \"<b>$rapat->mulai - $rapat->selesai WITA</b>\".")->withInput();
         } else {
             return back()->with('danger', 'Kode rapat salah atau rapat tidak ditemukan.')->withInput();
         }

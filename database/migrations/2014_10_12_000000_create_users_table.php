@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('level');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->enum('status', ['aktif', 'tidak aktif'])->default('aktif');
             $table->rememberToken();
             $table->timestamps();
         });

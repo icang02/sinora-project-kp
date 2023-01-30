@@ -23,10 +23,10 @@
     <!-- /.login-logo -->
     <div class="card card-outline card-primary">
       <div class="card-header text-center">
-        <a href="{{ route('absen') }}" class="h1"><b>Absensi</b> Rapat</a>
+        <a href="{{ route('notulen') }}" class="h1"><b>Notulen</b> Login</a>
       </div>
       <div class="card-body">
-        <p class="text-center">Isi data Anda untuk melakukan presensi.</p>
+        <p class="text-center">Masukan email dan password Anda.</p>
 
         @if (session('success'))
           <div class="alert alert-success alert-dismissible fade show mt-2" role="alert">
@@ -53,84 +53,23 @@
           </div>
         @endif
 
-        <form action="{{ route('process.absen') }}" method="post">
-          @csrf
-          <div class="form-group">
-            <label for="nama">Kode Rapat</label>
-            <input name="kode" type="text" class="form-control" id="nama" required
-              value="{{ old('kode') }}" minlength="11" maxlength="11">
-          </div>
-          <div class="form-group">
-            <label for="nama">Nama Lengkap</label>
-            <input name="nama" type="text" class="form-control" id="nama" required
-              value="{{ old('nama') }}">
-          </div>
-          <div class="form-group">
-            <label for="nip">NIP</label>
-            <input name="nip" type="text" class="form-control" id="nip" required
-              value="{{ old('nip') }}" maxlength="18">
-          </div>
-          <div class="form-group">
-            <label for="divisi">Jabatan</label>
-            <select name="jabatan" class="form-control" id="divisi">
-              <option value="">Pilih ...</option>
-              @foreach ($divisi as $item)
-                <option value="{{ $item->nama }}">{{ strtoupper($item->nama) }}</option>
-              @endforeach
-              <input name="jabatan_lain" type="text" class="form-control mt-2" id="jabatan_lain"
-                placeholder="Lainnya ..." value="{{ old('jabatan_lain') }}">
-              @error('jabatan_lain')
-                <div class="text-danger">{{ $message }}</div>
-              @enderror
-            </select>
-          </div>
-
-          @php
-            $keterangan = ['Hadir', 'Tidak Hadir', 'Sakit', 'Perjalanan Dinas', 'Diluar Kota'];
-          @endphp
-          <label>Keterangan</label>
-          <div class="d-flex flex-wrap">
-            @foreach ($keterangan as $item)
-              <div class="form-check mr-3">
-                <input @if (old('keterangan') == $item) checked @endif class="form-check-input" type="radio"
-                  name="keterangan" id="{{ $item }}" value="{{ $item }}">
-                <label class="form-check-label" for="{{ $item }}">
-                  {{ $item }}
-                </label>
-              </div>
-            @endforeach
-          </div>
-
-          <div class="form-group mt-2">
-            <input name="keterangan_lain" type="text" class="form-control" id="keterangan_lain"
-              value="{{ old('keterangan_lain') }}" placeholder="Lainnya ...">
-
-            @error('keterangan')
-              <div class="text-danger mt-1">{{ $message }}</div>
-            @enderror
-            @error('keterangan_lain')
-              <div class="text-danger mt-1">{{ $message }}</div>
-            @enderror
-          </div>
-
-          <div class="text-center">
-            <button type="submit" class="btn btn-primary">ABSEN</button>
-          </div>
-        </form>
-
-        {{-- <form action="{{ route('login.proses.absen') }}" method="post">
+        <form action="#" method="post">
           @csrf
           <div class="input-group mb-3">
-            <input name="nip" type="text" class="form-control" placeholder="NIP" value="{{ old('nip') }}"
-              required>
+            <input name="email" type="email" class="form-control @error('email') is-invalid @enderror"
+              placeholder="Email" value="{{ old('email') }}" required autofocus>
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-envelope"></span>
               </div>
             </div>
+            @error('email')
+              <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
           </div>
           <div class="input-group mb-3">
-            <input name="password" type="password" class="form-control" placeholder="Password" required>
+            <input name="password" type="password" class="form-control" placeholder="Password" required
+              autocomplete="off">
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-lock"></span>
@@ -152,7 +91,7 @@
             </div>
             <!-- /.col -->
           </div>
-        </form> --}}
+        </form>
 
         {{-- <p class="mb-0">
           <a href="register.html" class="text-center">Register a new membership</a>

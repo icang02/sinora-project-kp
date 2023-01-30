@@ -13,7 +13,7 @@
         <img src="{{ asset('') }}img/user.png" class="img-circle elevation-2" alt="User Image">
       </div>
       <div class="info">
-        <a href="#" class="d-block">Ilmi Faizan</a>
+        <a href="#" class="d-block">{{ auth()->user()->name }}</a>
       </div>
     </div>
 
@@ -41,14 +41,16 @@
           </a>
         </li>
 
-        <li class="nav-item @if (request()->is('manajemen-user')) menu-open @endif">
-          <a href="{{ route('manajemen.user') }}" class="nav-link">
-            <i class="nav-icon fas fa-tachometer-alt"></i>
-            <p>
-              Manajemen User
-            </p>
-          </a>
-        </li>
+        @can('admin')
+          <li class="nav-item @if (request()->is('manajemen-user')) menu-open @endif">
+            <a href="{{ route('manajemen.user') }}" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Manajemen User
+              </p>
+            </a>
+          </li>
+        @endcan
 
         <li class="nav-item @if (request()->is('jenis-rapat') || request()->is('rapat*')) menu-open @endif">
           <a href="#" class="nav-link">
@@ -59,12 +61,15 @@
             </p>
           </a>
           <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="{{ route('jenis.rapat') }}" class="nav-link @if (request()->is('jenis-rapat')) active @endif">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Jenis Rapat</p>
-              </a>
-            </li>
+            @can('admin')
+              <li class="nav-item">
+                <a href="{{ route('jenis.rapat') }}" class="nav-link @if (request()->is('jenis-rapat')) active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Jenis Rapat</p>
+                </a>
+              </li>
+            @endcan
+
             <li class="nav-item">
               <a href="{{ route('rapat') }}" class="nav-link @if (request()->is('rapat*')) active @endif">
                 <i class="far fa-circle nav-icon"></i>
@@ -79,7 +84,7 @@
         </li>
 
         <li class="nav-item">
-          <a href="pages/widgets.html" class="nav-link">
+          <a href="{{ route('logout') }}" class="nav-link">
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>
               Logout

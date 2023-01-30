@@ -213,11 +213,6 @@
                                   value="{{ old('nama', $rpt->nama) }}" required>
                               </div>
                               <div class="form-group">
-                                <label for="ruang">Ruang Rapat</label>
-                                <input name="ruang" type="text" class="form-control" id="ruang"
-                                  value="{{ old('ruang', $rpt->ruang) }}" required>
-                              </div>
-                              <div class="form-group">
                                 <label for="pimpinan_rapat">Pimpinan Rapat</label>
                                 <input name="pimpinan_rapat" type="text" class="form-control" id="pimpinan_rapat"
                                   value="{{ old('pimpinan_rapat', $rpt->pimpinan_rapat) }}" required>
@@ -226,6 +221,26 @@
                                 <label for="pengisi_rapat">Pengisi Rapat</label>
                                 <input name="pengisi_rapat" type="text" class="form-control" id="pengisi_rapat"
                                   value="{{ old('pengisi_rapat', $rpt->pengisi_rapat) }}" required>
+                              </div>
+                              <div class="form-row mb-3">
+                                <div class="col-6">
+                                  <label for="ruang">Ruang Rapat</label>
+                                  <input name="ruang" type="text" class="form-control" id="ruang"
+                                    value="{{ old('ruang', $rpt->ruang) }}">
+                                </div>
+                                <div class="col-6">
+                                  <label for="status">Status</label>
+                                  <select name="status" class="form-control" id="status" required>
+                                    <option value="">Pilh ...</option>
+                                    <option value="belum dimulai" @if (old('status', $rpt->status == 'belum dimulai')) selected @endif>Belum
+                                      dimulai</option>
+                                    <option value="sedang berjalan" @if (old('status', $rpt->status == 'sedang berjalan')) selected @endif>
+                                      Sedang berjalan</option>
+                                    <option value="selesai" @if (old('status', $rpt->status == 'selesai')) selected @endif>Selesai
+                                    </option>
+                                  </select>
+                                </div>
+
                               </div>
                             </div>
                             <div class="modal-footer">

@@ -25,15 +25,15 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'Operator',
             'email' => 'user@gmail.com',
-            'level' => 'User',
+            'level' => 'Pegawai',
             'password' => Hash::make('user'),
         ]);
 
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 3; $i++) {
             User::create([
                 'name' => 'Operator',
                 'email' => Str::random() . '@gmail.com',
-                'level' => 'User',
+                'level' => 'Pegawai',
                 'password' => Hash::make('user'),
             ]);
         }

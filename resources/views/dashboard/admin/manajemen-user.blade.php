@@ -91,6 +91,7 @@
                     <th>Email</th>
                     <th>Level</th>
                     <th>Register</th>
+                    <th>Status</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -102,6 +103,13 @@
                       <td>{{ $user->email }}</td>
                       <td>{{ $user->level }}</td>
                       <td>{{ $user->created_at }}</td>
+                      <td>
+                        @if ($user->status == 'aktif')
+                          <button class="btn btn-success btn-sm badge">{{ ucwords($user->status) }}</button>
+                        @else
+                          <button class="btn btn-warning btn-sm badge">{{ ucwords($user->status) }}</button>
+                        @endif
+                      </td>
                       <td>
                         <button class="btn btn-info btn-sm" data-toggle="modal"
                           data-target="#modalEdit{{ $user->id }}">Edit</button>
