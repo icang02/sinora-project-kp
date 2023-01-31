@@ -6,90 +6,91 @@
         <div class="col-12">
 
           <!-- Modal -->
-          <div class="modal fade" id="modalTambah" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Tambah Peserta Rapat</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
+          @can('pegawai')
+            <div class="modal fade" id="modalTambah" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Tambah Peserta Rapat</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+
+                  <form action="{{ route('add.peserta') }}" method="post">
+                    <input type="hidden" name="rapat_id" value="{{ $rapat->id }}">
+                    <div class="modal-body">
+                      @csrf
+                      <div class="form-group">
+                        <label for="nama">Nama Lengkap</label>
+                        <input name="nama" type="text" class="form-control" id="nama" required
+                          value="{{ old('nama') }}">
+                      </div>
+                      <div class="form-group">
+                        <label for="nip">NIP</label>
+                        <input name="nip" type="text" class="form-control" id="nip" required
+                          value="{{ old('nip') }}" maxlength="18">
+                      </div>
+                      <div class="form-group">
+                        <label for="jabatan">Jabatan</label>
+                        <input name="jabatan" type="text" class="form-control" id="jabatan" required
+                          value="{{ old('jabatan') }}">
+                      </div>
+
+
+                      <label>Keterangan</label>
+                      <div class="d-flex flex-wrap">
+                        <div class="form-check mr-3">
+                          <input class="form-check-input" type="radio" name="keterangan" id="hadir" value="Hadir"
+                            required>
+                          <label class="form-check-label" for="hadir">
+                            Hadir
+                          </label>
+                        </div>
+                        <div class="form-check mr-3">
+                          <input class="form-check-input" type="radio" name="keterangan" id="tidak_hadir"
+                            value="Tidak Hadir" required>
+                          <label class="form-check-label" for="tidak_hadir">
+                            Tidak Hadir
+                          </label>
+                        </div>
+                        <div class="form-check mr-3">
+                          <input class="form-check-input" type="radio" name="keterangan" id="sakit" value="Sakit"
+                            required>
+                          <label class="form-check-label" for="sakit">
+                            Sakit
+                          </label>
+                        </div>
+                        <div class="form-check mr-3">
+                          <input class="form-check-input" type="radio" name="keterangan" id="perjalanan_dinas"
+                            value="Perjalanan Dinas" required>
+                          <label class="form-check-label" for="perjalanan_dinas">
+                            Perjalanan Dinas
+                          </label>
+                        </div>
+                        <div class="form-check mr-3">
+                          <input class="form-check-input" type="radio" name="keterangan" id="diluar_kota"
+                            value="Diluar Kota" required>
+                          <label class="form-check-label" for="diluar_kota">
+                            Diluar Kota
+                          </label>
+                        </div>
+                      </div>
+                      <div class="form-group mt-2">
+                        <input name="keterangan_lain" type="text" class="form-control" id="keterangan_lain"
+                          value="{{ old('keterangan_lain') }}" placeholder="Lainnya ...">
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-primary">Tambah Data</button>
+                      <button class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+                    </div>
+                  </form>
                 </div>
-
-                <form action="{{ route('add.peserta') }}" method="post">
-                  <input type="hidden" name="rapat_id" value="{{ $rapat->id }}">
-                  <div class="modal-body">
-                    @csrf
-                    <div class="form-group">
-                      <label for="nama">Nama Lengkap</label>
-                      <input name="nama" type="text" class="form-control" id="nama" required
-                        value="{{ old('nama') }}">
-                    </div>
-                    <div class="form-group">
-                      <label for="nip">NIP</label>
-                      <input name="nip" type="text" class="form-control" id="nip" required
-                        value="{{ old('nip') }}" maxlength="18">
-                    </div>
-                    <div class="form-group">
-                      <label for="jabatan">Jabatan</label>
-                      <input name="jabatan" type="text" class="form-control" id="jabatan" required
-                        value="{{ old('jabatan') }}">
-                    </div>
-
-
-                    <label>Keterangan</label>
-                    <div class="d-flex flex-wrap">
-                      <div class="form-check mr-3">
-                        <input class="form-check-input" type="radio" name="keterangan" id="hadir" value="Hadir"
-                          required>
-                        <label class="form-check-label" for="hadir">
-                          Hadir
-                        </label>
-                      </div>
-                      <div class="form-check mr-3">
-                        <input class="form-check-input" type="radio" name="keterangan" id="tidak_hadir"
-                          value="Tidak Hadir" required>
-                        <label class="form-check-label" for="tidak_hadir">
-                          Tidak Hadir
-                        </label>
-                      </div>
-                      <div class="form-check mr-3">
-                        <input class="form-check-input" type="radio" name="keterangan" id="sakit" value="Sakit"
-                          required>
-                        <label class="form-check-label" for="sakit">
-                          Sakit
-                        </label>
-                      </div>
-                      <div class="form-check mr-3">
-                        <input class="form-check-input" type="radio" name="keterangan" id="perjalanan_dinas"
-                          value="Perjalanan Dinas" required>
-                        <label class="form-check-label" for="perjalanan_dinas">
-                          Perjalanan Dinas
-                        </label>
-                      </div>
-                      <div class="form-check mr-3">
-                        <input class="form-check-input" type="radio" name="keterangan" id="diluar_kota"
-                          value="Diluar Kota" required>
-                        <label class="form-check-label" for="diluar_kota">
-                          Diluar Kota
-                        </label>
-                      </div>
-                    </div>
-                    <div class="form-group mt-2">
-                      <input name="keterangan_lain" type="text" class="form-control" id="keterangan_lain"
-                        value="{{ old('keterangan_lain') }}" placeholder="Lainnya ...">
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Tambah Data</button>
-                    <button class="btn btn-secondary" data-dismiss="modal">Kembali</button>
-                  </div>
-                </form>
               </div>
             </div>
-          </div>
-
+          @endcan
 
           @if (session('success'))
             <div class="alert alert-success alert-dismissible fade show mt-2" role="alert">
@@ -222,7 +223,8 @@
                     <tr>
                       <td style="width: 150px;">Notulis</td>
                       <td style="width: 15px;">:</td>
-                      <td class="font-weight-bold">{{ isset($rapat->notulen->notulis) ? $rapat->notulen->notulis : '-' }}
+                      <td class="font-weight-bold">
+                        {{ isset($rapat->notulen->notulis) ? $rapat->notulen->notulis : '-' }}
                       </td>
                     </tr>
                     <tr>
@@ -251,7 +253,9 @@
                 <div class="col-md-6">
                   <h6 class="font-weight-bold card-title">Action</h6> <br>
                   <div class="mt-2">
-                    <button class="btn btn-secondary btn-sm">Edit Notulen</button>
+                    @can('pegawai')
+                      <a href="{{ route('edit.notulen', $rapat->id) }}" class="btn btn-secondary btn-sm">Edit Notulen</a>
+                    @endcan
                     <button class="btn btn-secondary btn-sm">Lihat Notulen</button>
                     <button class="btn btn-secondary btn-sm">Cetak Notulen</button>
                   </div>
@@ -263,8 +267,10 @@
 
               <div class="d-flex justify-content-between">
                 <h6 class="font-weight-bold card-title">Daftar Hadir</h6><br>
-                <button class="btn btn-info btn-sm badge" data-toggle="modal" data-target="#modalTambah">Tambah
-                  Peserta</button>
+                @can('pegawai')
+                  <button class="btn btn-info btn-sm badge" data-toggle="modal" data-target="#modalTambah">Tambah
+                    Peserta</button>
+                @endcan
               </div>
 
               <div class="mt-3">
@@ -276,7 +282,9 @@
                       <th>NIP</th>
                       <th>Jabatan</th>
                       <th>Keterangan</th>
-                      <th>Action</th>
+                      @can('pegawai')
+                        <th>Action</th>
+                      @endcan
                     </tr>
                   </thead>
                   <tbody>
@@ -287,13 +295,15 @@
                         <td>{{ $item->nip }}</td>
                         <td>{{ $item->jabatan }}</td>
                         <td>{{ $item->keterangan }}</td>
-                        <td>
-                          <form action="{{ route('delete.peserta', $item->id) }}" method="post">
-                            @csrf
-                            @method('delete')
-                            <button type="submit" class="btn btn-danger btn-sm badge">Hapus Peserta</button>
-                          </form>
-                        </td>
+                        @can('pegawai')
+                          <td>
+                            <form action="{{ route('delete.peserta', $item->id) }}" method="post">
+                              @csrf
+                              @method('delete')
+                              <button type="submit" class="btn btn-danger btn-sm badge">Hapus Peserta</button>
+                            </form>
+                          </td>
+                        @endcan
                       </tr>
                     @endforeach
                   </tbody>

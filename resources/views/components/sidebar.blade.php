@@ -52,7 +52,7 @@
           </li>
         @endcan
 
-        <li class="nav-item @if (request()->is('jenis-rapat') || request()->is('rapat*')) menu-open @endif">
+        <li class="nav-item @if (request()->is('jenis-rapat') || request()->is('rapat*') || request()->is('notulen*')) menu-open @endif">
           <a href="#" class="nav-link">
             <i class="nav-icon fas fa-table"></i>
             <p>
@@ -71,7 +71,7 @@
             @endcan
 
             <li class="nav-item">
-              <a href="{{ route('rapat') }}" class="nav-link @if (request()->is('rapat*')) active @endif">
+              <a href="{{ route('rapat') }}" class="nav-link @if (request()->is('rapat*') || request()->is('notulen*')) active @endif">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Data Rapat</p>
               </a>

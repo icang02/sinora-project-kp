@@ -89,4 +89,38 @@ class NotulenController extends Controller
 
         return redirect()->route('notulen')->with('success', 'Terima kasih data rapat telah disimpan.');
     }
+
+    public function editNotulen(Request $request, $id)
+    {
+        return view(
+            'dashboard.admin.edit-notulen',
+            [
+                'title' => 'Edit Notulen',
+                'notulen' => Notulen::find($id),
+            ]
+        );
+    }
+
+    public function updateNotulen(Request $request, Notulen $notulen)
+    {
+        $request->validate([
+            'notulis' => 'required',
+            'nip' => 'required',
+            'pangkat' => 'required',
+            'jabatan' => 'required',
+            'pembahasan' => 'required',
+        ], [
+            'required' => 'Pembahasan rapat belum diisi.'
+        ]);
+
+        $notulen->update([
+            'notulis' => ucfirst($request->notulis),
+            'nip' => $request->nip,
+            'pangkat' => ucfirst($request->pangkat),
+            'jabatan' => ucfirst($request->jabatan),
+            'pembahasan' => $request->pembahasan,
+        ]);
+
+        return redirect()->route('edit.notulen', $notulen->id)->with('success', 'Data notulen telah diupdate.');
+    }
 }

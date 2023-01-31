@@ -59,11 +59,6 @@
                         required>
                     </div>
                     <div class="form-group">
-                      <label for="ruang">Ruang Rapat</label>
-                      <input name="ruang" type="text" class="form-control" id="ruang" value="{{ old('ruang') }}"
-                        required>
-                    </div>
-                    <div class="form-group">
                       <label for="pimpinan_rapat">Pimpinan Rapat</label>
                       <input name="pimpinan_rapat" type="text" class="form-control" id="pimpinan_rapat"
                         value="{{ old('pimpinan_rapat') }}" required>
@@ -72,6 +67,11 @@
                       <label for="pengisi_rapat">Pengisi Rapat</label>
                       <input name="pengisi_rapat" type="text" class="form-control" id="pengisi_rapat"
                         value="{{ old('pengisi_rapat') }}" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="ruang">Ruang Rapat</label>
+                      <input name="ruang" type="text" class="form-control" id="ruang" value="{{ old('ruang') }}"
+                        required>
                     </div>
                   </div>
                   <div class="modal-footer">
@@ -150,7 +150,7 @@
                             class="btn badge btn-sm btn-success font-weight-bold">{{ ucfirst($rpt->status) }}</button>
                         @endif
                       </td>
-                      <td class="d-flex">
+                      <td>
                         <button class="btn btn-info btn-sm mr-1" data-toggle="modal"
                           data-target="#modalEdit{{ $rpt->id }}">Edit</button>
                         <a class="btn btn-secondary btn-sm" href="{{ route('detail.rapat', $rpt->slug) }}">Detail</a>

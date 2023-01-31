@@ -61,3 +61,6 @@ Route::post('/notulen/{notulen}', [NotulenController::class, 'saveNotulen'])->na
 Route::post('/notulen', [NotulenController::class, 'checkKode'])->name('check.kode');
 Route::post('/notulen-logout', [NotulenController::class, 'notulenLogout'])->name('notulen.logout');
 Route::post('/akhiri-rapat', [NotulenController::class, 'akhiriRapat'])->name('akhiri.rapat');
+
+Route::get('/notulen/edit/{id}', [NotulenController::class, 'editNotulen'])->name('edit.notulen')->middleware(['auth', 'can:pegawai']);
+Route::put('/notulen/update/{notulen}', [NotulenController::class, 'updateNotulen'])->name('update.notulen')->middleware(['auth', 'can:pegawai']);

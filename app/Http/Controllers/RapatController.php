@@ -7,6 +7,7 @@ use App\Models\Notulen;
 use App\Models\Peserta;
 use App\Models\Rapat;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class RapatController extends Controller
@@ -41,18 +42,22 @@ class RapatController extends Controller
             $rapatId++;
         }
 
-        Rapat::create([
-            'jenis_rapat_id' => $request->jenis_rapat,
-            'kode' => 'R.' . str_pad($rapatId, 4, '0', STR_PAD_LEFT) . '.' . date('Y'),
-            'nama' => Str::title($request->nama),
-            'slug' => Str::slug($request->nama),
-            'ruang' => ucfirst($request->ruang),
-            'pengisi_rapat' => ucfirst($request->pengisi_rapat),
-            'pimpinan_rapat' => ucfirst($request->pimpinan_rapat),
-            'tanggal' => $request->tanggal,
-            'mulai' => $request->mulai,
-            'selesai' => $request->selesai,
-        ]);
+        $rapatId = DB::table('rapat')->insertGetId(
+            [
+                'jenis_rapat_id' => $request->jenis_rapat,
+                'kode' => 'R.' . str_pad($rapatId, 4, '0', STR_PAD_LEFT) . '.' . date('Y'),
+                'nama' => Str::title($request->nama),
+                'slug' => Str::slug($request->nama),
+                'ruang' => ucfirst($request->ruang),
+                'pengisi_rapat' => ucfirst($request->pengisi_rapat),
+                'pimpinan_rapat' => ucfirst($request->pimpinan_rapat),
+                'tanggal' => $request->tanggal,
+                'mulai' => $request->mulai,
+                'selesai' => $request->selesai,
+            ]
+        );
+
+        Notulen::create(['rapat_id' => $rapatId]);
 
         return redirect()->route('rapat')->with('success', 'Rapat berhasil dibuat.');
     }

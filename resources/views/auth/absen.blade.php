@@ -68,9 +68,14 @@
           <div class="form-group">
             <label for="nip">NIP</label>
             <input name="nip" type="text" class="form-control" id="nip" required
-              value="{{ old('nip') }}" maxlength="18">
+              value="{{ old('nip') }}" minlength="18" maxlength="18">
           </div>
           <div class="form-group">
+            <label for="jabatan">jabatan</label>
+            <input name="jabatan" type="text" class="form-control" id="jabatan" required
+              value="{{ old('jabatan') }}">
+          </div>
+          {{-- <div class="form-group">
             <label for="divisi">Jabatan</label>
             <select name="jabatan" class="form-control" id="divisi">
               <option value="">Pilih ...</option>
@@ -83,7 +88,7 @@
                 <div class="text-danger">{{ $message }}</div>
               @enderror
             </select>
-          </div>
+          </div> --}}
 
           @php
             $keterangan = ['Hadir', 'Tidak Hadir', 'Sakit', 'Perjalanan Dinas', 'Diluar Kota'];
