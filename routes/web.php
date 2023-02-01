@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthAbsenController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DokumentasiController;
 use App\Http\Controllers\JenisRapatController;
 use App\Http\Controllers\ManajemenUserController;
 use App\Http\Controllers\NotulenController;
@@ -44,6 +45,10 @@ Route::put('/update-rapat/{rapat:slug}', [RapatController::class, 'updateRapat']
 
 Route::post('/add-peserta', [PesertaController::class, 'addPeserta'])->name('add.peserta');
 Route::delete('/delete-peserta/{peserta}', [PesertaController::class, 'deletePeserta'])->name('delete.peserta');
+
+Route::get('/dokumentasi/{rapat:slug}', [DokumentasiController::class, 'index'])->name('dokumentasi');
+Route::post('/upload-dokumentasi/{rapatId}', [DokumentasiController::class, 'upload'])->name('upload.dokumentasi');
+Route::delete('/delete-dokumentasi/{foto}', [DokumentasiController::class, 'delete'])->name('delete.dokumentasi');
 // END ROUTE ADMINISTRATOR
 
 // AUTHENTICATION
@@ -54,6 +59,8 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout')->middle
 // ABSEN
 Route::get('/absen', [AuthAbsenController::class, 'index'])->name('absen');
 Route::post('/absen', [AuthAbsenController::class, 'processAbsen'])->name('process.absen');
+Route::post('/upload-absen/{rapatId}', [AuthAbsenController::class, 'uploadAbsen'])->name('upload.absen');
+Route::get('/download-absen/{id}', [AuthAbsenController::class, 'downloadAbsen'])->name('download.absen');
 
 Route::get('/notulen', [NotulenController::class, 'index'])->name('notulen');
 Route::get('/notulen/{rapat:kode}', [NotulenController::class, 'indexNotulen'])->name('isi.notulen');

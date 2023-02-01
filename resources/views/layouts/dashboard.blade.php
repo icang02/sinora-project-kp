@@ -6,10 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Sinora | {{ $title }}</title>
 
+  {{-- Gallery --}}
+  <link rel="stylesheet" href="{{ asset('') }}plugins/ekko-lightbox/ekko-lightbox.css">
+
   <link rel="icon" type="image/x-icon" href="{{ asset('img/favicon.ico') }}">
 
   <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{ asset('') }}plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
@@ -179,6 +183,30 @@
       CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
         mode: "htmlmixed",
         theme: "monokai"
+      });
+    })
+  </script>
+
+
+  {{-- GALLERY --}}
+  <!-- Filterizr-->
+  <script src="{{ asset('') }}plugins/filterizr/jquery.filterizr.min.js"></script>
+  <script src="{{ asset('') }}plugins/ekko-lightbox/ekko-lightbox.min.js"></script>
+  <script>
+    $(function() {
+      $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+        event.preventDefault();
+        $(this).ekkoLightbox({
+          alwaysShowClose: true
+        });
+      });
+
+      $('.filter-container').filterizr({
+        gutterPixels: 3
+      });
+      $('.btn[data-filter]').on('click', function() {
+        $('.btn[data-filter]').removeClass('active');
+        $(this).addClass('active');
       });
     })
   </script>

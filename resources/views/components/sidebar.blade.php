@@ -68,14 +68,40 @@
                   <p>Jenis Rapat</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="{{ route('rapat') }}" class="nav-link @if (request()->is('rapat*') || request()->is('notulen*')) active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Data Rapat</p>
+                </a>
+              </li>
             @endcan
 
-            <li class="nav-item">
-              <a href="{{ route('rapat') }}" class="nav-link @if (request()->is('rapat*') || request()->is('notulen*')) active @endif">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Data Rapat</p>
-              </a>
-            </li>
+            @can('pegawai')
+              <li class="nav-item">
+                <a href="{{ route('rapat') }}" class="nav-link @if (request()->is('rapat*') || request()->is('notulen*')) active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Semua Rapat</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('rapat') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Belum Dimulai</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('rapat') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Sedang Berjalan</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('rapat') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Selesai</p>
+                </a>
+              </li>
+            @endcan
           </ul>
         </li>
 

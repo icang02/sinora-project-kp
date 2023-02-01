@@ -121,6 +121,7 @@ class NotulenController extends Controller
             'pembahasan' => $request->pembahasan,
         ]);
 
-        return redirect()->route('edit.notulen', $notulen->id)->with('success', 'Data notulen telah diupdate.');
+        return redirect()->route('detail.rapat', $notulen->rapat->slug)->with('success', 'Data notulen berhasil diupdate.');
+        // return redirect()->route('edit.notulen', $notulen->id)->with('success', 'Data notulen telah diupdate.');
     }
 }

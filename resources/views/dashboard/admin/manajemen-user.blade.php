@@ -51,8 +51,8 @@
                     </div>
                   </div>
                   <div class="modal-footer">
-                    <button class="btn btn-secondary" data-dismiss="modal">Kembali</button>
                     <button type="submit" class="btn btn-primary">Tambah Data</button>
+                    <button class="btn btn-secondary" data-dismiss="modal">Kembali</button>
                   </div>
                 </form>
               </div>
@@ -151,9 +151,10 @@
                                 <select name="level" class="form-control" id="level" required>
                                   <option value="">Pilih ...</option>
                                   <option value="Administrator" @if (old('level', $user->level) == 'Administrator') selected @endif>
-                                    Administrator
+                                    ADMINISTRATOR
                                   </option>
-                                  <option value="User" @if (old('level', $user->level) == 'User') selected @endif>User</option>
+                                  <option value="Pegawai" @if (old('level', $user->level) == 'Pegawai') selected @endif>PEGAWAI
+                                  </option>
                                 </select>
                               </div>
                               <div class="form-group">
@@ -168,8 +169,8 @@
                               </div>
                             </div>
                             <div class="modal-footer">
-                              <button class="btn btn-secondary" data-dismiss="modal">Kembali</button>
                               <button type="submit" class="btn btn-primary">Update Data</button>
+                              <button class="btn btn-secondary" data-dismiss="modal">Kembali</button>
                             </div>
                           </form>
                         </div>

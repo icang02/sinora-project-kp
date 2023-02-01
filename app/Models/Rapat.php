@@ -25,4 +25,14 @@ class Rapat extends Model
     {
         return $this->hasOne(Notulen::class);
     }
+
+    public function file_absen()
+    {
+        return $this->hasOne(FileAbsen::class);
+    }
+
+    public function dokumentasi()
+    {
+        return $this->hasMany(Dokumentasi::class);
+    }
 }

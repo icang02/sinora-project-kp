@@ -7,6 +7,7 @@
 
           <!-- Modal -->
           @can('pegawai')
+            {{-- Tambah Peserta Rapat --}}
             <div class="modal fade" id="modalTambah" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
               aria-hidden="true">
               <div class="modal-dialog" role="document">
@@ -90,6 +91,46 @@
                 </div>
               </div>
             </div>
+
+            {{-- Upload Daftar Hadir --}}
+            <div class="modal fade" id="modalAbsen" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Daftar Hadir Rapat</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+
+                  <form action="{{ route('upload.absen', $rapat->id) }}" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="rapat_id" value="{{ $rapat->id }}">
+                    <div class="modal-body">
+                      @csrf
+                      <div class="form-group">
+                        <label for="file">File Absen</label>
+                        <input accept=".pdf,.docx,.doc,.xlsx" name="file" type="file" class="form-control"
+                          id="file" required>
+                        <div class="text-form text-muted mt-2">Upload file format .doc, .docx, .xlsx, atau .pdf.</div>
+                      </div>
+
+                      @if ($rapat->file_absen == null)
+                        <button class="btn btn-secondary btn-sm" disabled>Download Absen</button>
+                      @else
+                        <div>{{ $rapat->file_absen->file_asli }}</div>
+                        <a href="{{ route('download.absen', $rapat->file_absen->id) }}"
+                          class="btn btn-secondary btn-sm mt-1">Download Absen</a>
+                      @endif
+                    </div>
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-primary">Upload</button>
+                      <button class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
           @endcan
 
           @if (session('success'))
@@ -109,6 +150,14 @@
             </div>
           @endif
           @error('nama')
+            <div class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
+              {!! $message !!}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          @enderror
+          @error('file')
             <div class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
               {!! $message !!}
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -258,6 +307,10 @@
                     @endcan
                     <button class="btn btn-secondary btn-sm">Lihat Notulen</button>
                     <button class="btn btn-secondary btn-sm">Cetak Notulen</button>
+                    @can('pegawai')
+                      <a href="{{ route('dokumentasi', $rapat->slug) }}" class="btn btn-secondary btn-sm">Dokumentasi
+                        Rapat</a>
+                    @endcan
                   </div>
                 </div>
 
@@ -268,8 +321,12 @@
               <div class="d-flex justify-content-between">
                 <h6 class="font-weight-bold card-title">Daftar Hadir</h6><br>
                 @can('pegawai')
-                  <button class="btn btn-info btn-sm badge" data-toggle="modal" data-target="#modalTambah">Tambah
-                    Peserta</button>
+                  <div>
+                    <button class="btn btn-info btn-sm badge" data-toggle="modal" data-target="#modalTambah">Tambah
+                      Peserta</button>
+                    <button class="btn btn-secondary btn-sm badge" data-toggle="modal" data-target="#modalAbsen">File
+                      Daftar Hadir</button>
+                  </div>
                 @endcan
               </div>
 

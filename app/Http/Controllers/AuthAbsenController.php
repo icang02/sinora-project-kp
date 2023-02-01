@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Divisi;
+use App\Models\FileAbsen;
 use App\Models\Peserta;
 use App\Models\Rapat;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class AuthAbsenController extends Controller
@@ -71,5 +73,45 @@ class AuthAbsenController extends Controller
         } else {
             return back()->with('danger', 'Kode rapat salah atau rapat tidak ditemukan.')->withInput();
         }
+    }
+
+    public function uploadAbsen(Request $request, $rapatId)
+    {
+        $request->validate([
+            'file' => 'file|mimes:docx,doc,xlsx,pdf|max:5120,'
+        ], [
+            'mimes' => 'Upload file dengan .docx, .doc, .xlsx, atau .pdf.',
+            'max' => 'Ukuran file maksimal 5MB.',
+        ]);
+
+        $fileAbsen = FileAbsen::where('rapat_id', $rapatId)->get()->first();
+        $fileAsli = $request->file('file')->getClientOriginalName();
+        $file = $request->file('file')->store('file-absen');
+
+        if ($fileAbsen != null) {
+            Storage::delete($fileAbsen->file);
+
+            $fileAbsen->update([
+                'file' => $file,
+                'file_asli' => $fileAsli,
+            ]);
+        } else {
+            FileAbsen::create([
+                'rapat_id' => $rapatId,
+                'file' => $file,
+                'file_asli' => $fileAsli,
+            ]);
+        }
+
+        return back()->with('success', 'File absen berhasil diupload.');
+    }
+
+    public function downloadAbsen($id)
+    {
+        $fileAbsen = FileAbsen::find($id);
+        $file = $fileAbsen->file;
+        $fileAsli = $fileAbsen->file_asli;
+
+        return Storage::download($file, $fileAsli);
     }
 }

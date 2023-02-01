@@ -26,7 +26,6 @@ class PesertaController extends Controller
         return back()->with('success', 'Peserta rapat berhasil ditambahkan.');
     }
 
-
     public function deletePeserta(Peserta $peserta)
     {
         $peserta->delete();
