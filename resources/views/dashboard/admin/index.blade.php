@@ -25,9 +25,9 @@
                 <p>Total Rapat</p>
               </div>
               <div class="icon">
-                <i class="ion ion-bag"></i>
+                <i class="ion ion-ios-people"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{ route('rapat') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -40,24 +40,27 @@
                 <p>User Aktif</p>
               </div>
               <div class="icon">
-                <i class="ion ion-stats-bars"></i>
+                <i class="ion ion-android-checkmark-circle"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{ route('manajemen.user') }}" class="small-box-footer">More info <i
+                  class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
           <div class="col-lg-4 col-6">
             <!-- small box -->
-            <div class="small-box bg-warning">
+            <div class="small-box bg-danger">
               <div class="inner">
                 <h3>{{ $userTidakAktif }}</h3>
 
                 <p>User Tidak Aktif</p>
               </div>
               <div class="icon">
-                <i class="ion ion-person-add"></i>
+                <i class="ion ion-close-circled"></i>
+                {{-- <i class="ion ion-close-circled"></i> --}}
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{ route('manajemen.user') }}" class="small-box-footer">More info <i
+                  class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -66,6 +69,12 @@
         @php
           $totalRapat = App\Models\Rapat::all()->count();
           $belumDimulai = App\Models\Rapat::where('status', 'belum dimulai')
+              ->get()
+              ->count();
+          $sedangBerjalan = App\Models\Rapat::where('status', 'sedang berjalan')
+              ->get()
+              ->count();
+          $selesai = App\Models\Rapat::where('status', 'selesai')
               ->get()
               ->count();
         @endphp
@@ -80,9 +89,11 @@
                 <p>Total Rapat</p>
               </div>
               <div class="icon">
-                <i class="ion ion-bag"></i>
+                {{-- <i class="ion ion-ios-color-filter"></i> --}}
+                <i class="ion ion-ios-people"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{ route('rapat') }}" class="small-box-footer">More info <i
+                  class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -91,13 +102,14 @@
             <div class="small-box bg-success">
               <div class="inner">
                 <h3>{{ $belumDimulai }}</h3>
-
                 <p>Belum Dimulai</p>
               </div>
               <div class="icon">
-                <i class="ion ion-stats-bars"></i>
+                {{-- <i class="ion ion-calendar"></i> --}}
+                <i class="ion ion-android-bookmark"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{ url('data-rapat/belum-dimulai') }}" class="small-box-footer">More info <i
+                  class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -105,14 +117,14 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3>4</h3>
-
+                <h3>{{ $sedangBerjalan }}</h3>
                 <p>Sedang Berjalan</p>
               </div>
               <div class="icon">
-                <i class="ion ion-person-add"></i>
+                <i class="ion ion-android-time  "></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{ url('data-rapat/sedang-berjalan') }}" class="small-box-footer">More info <i
+                  class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -120,14 +132,14 @@
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3>0</h3>
-
+                <h3>{{ $selesai }}</h3>
                 <p>Selesai</p>
               </div>
               <div class="icon">
-                <i class="ion ion-pie-graph"></i>
+                <i class="ion ion-android-checkmark-circle"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{ url('data-rapat/selesai') }}" class="small-box-footer">More info <i
+                  class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->

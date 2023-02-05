@@ -305,10 +305,10 @@
 
               <hr class="my-4 border">
 
-              <div class="d-flex justify-content-between">
+              <div class="d-md-flex justify-content-between">
                 <h6 class="font-weight-bold card-title">Daftar Hadir</h6><br>
                 @can('pegawai')
-                  <div>
+                  <div class="mt-2 mt-md-0">
                     <button class="btn btn-info btn-sm badge" data-toggle="modal" data-target="#modalTambah">Tambah
                       Peserta</button>
                     <a href="{{ route('print.absen', $rapat->id) }}" target="_blank"
@@ -316,46 +316,52 @@
                       Daftar Hadir</a>
                     <button class="btn btn-secondary btn-sm badge" data-toggle="modal" data-target="#modalAbsen">File
                       Daftar Hadir</button>
-
                   </div>
+                @else
+                  <a href="{{ route('print.absen', $rapat->id) }}" target="_blank"
+                    class="btn btn-secondary btn-sm badge">Print
+                    Daftar Hadir</a>
                 @endcan
+
               </div>
 
               <div class="mt-3">
-                <table id="example1" class="table table-sm table-bordered table-striped">
-                  <thead>
-                    <tr>
-                      <th>#</th>
-                      <th>Nama Lengkap</th>
-                      <th>NIP</th>
-                      <th>Jabatan</th>
-                      <th>Keterangan</th>
-                      @can('pegawai')
-                        <th>Action</th>
-                      @endcan
-                    </tr>
-                  </thead>
-                  <tbody>
-                    @foreach ($peserta as $item)
+                <div class="table-responsive">
+                  <table id="tabel-data" class="table table-sm table-bordered table-striped">
+                    <thead>
                       <tr>
-                        <td>{{ $loop->iteration }}.</td>
-                        <td>{{ $item->nama }}</td>
-                        <td>{{ $item->nip }}</td>
-                        <td>{{ $item->jabatan }}</td>
-                        <td>{{ $item->keterangan }}</td>
+                        <th>#</th>
+                        <th>Nama Lengkap</th>
+                        <th>NIP</th>
+                        <th>Jabatan</th>
+                        <th>Keterangan</th>
                         @can('pegawai')
-                          <td>
-                            <form action="{{ route('delete.peserta', $item->id) }}" method="post">
-                              @csrf
-                              @method('delete')
-                              <button type="submit" class="btn btn-danger btn-sm badge">Hapus Peserta</button>
-                            </form>
-                          </td>
+                          <th>Action</th>
                         @endcan
                       </tr>
-                    @endforeach
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      @foreach ($peserta as $item)
+                        <tr>
+                          <td>{{ $loop->iteration }}.</td>
+                          <td>{{ $item->nama }}</td>
+                          <td>{{ $item->nip }}</td>
+                          <td>{{ $item->jabatan }}</td>
+                          <td>{{ $item->keterangan }}</td>
+                          @can('pegawai')
+                            <td>
+                              <form action="{{ route('delete.peserta', $item->id) }}" method="post">
+                                @csrf
+                                @method('delete')
+                                <button type="submit" class="btn btn-danger btn-sm badge">Hapus Peserta</button>
+                              </form>
+                            </td>
+                          @endcan
+                        </tr>
+                      @endforeach
+                    </tbody>
+                  </table>
+                </div>
               </div>
 
             </div>

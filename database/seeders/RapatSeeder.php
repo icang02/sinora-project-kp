@@ -33,6 +33,7 @@ class RapatSeeder extends Seeder
                 'ruang' => 'Aula Kantor BKKBN',
                 'pengisi_rapat' => 'Kabid, Kepala, Sekretaris',
                 'pimpinan_rapat' => 'Agus Salim, S.E., M.E.',
+                'nip_pimpinan' => '200203052025020102',
                 'tanggal' => '2023-01-30',
                 'mulai' => '08:00',
                 'selesai' => '11:30',

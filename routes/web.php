@@ -38,6 +38,7 @@ Route::get('/manajemen-user', [ManajemenUserController::class, 'index'])->name('
 Route::post('/add-user', [ManajemenUserController::class, 'addUser'])->name('add.user');
 Route::delete('/delete-user/{id}', [ManajemenUserController::class, 'deleteUser'])->name('delete.user');
 Route::put('/update-user/{id}', [ManajemenUserController::class, 'updateUser'])->name('update.user');
+Route::get('/reset/{user}', [ManajemenUserController::class, 'reset'])->name('reset');
 
 Route::get('/jenis-rapat', [JenisRapatController::class, 'index'])->name('jenis.rapat')->middleware(['auth', 'can:admin']);
 Route::post('/add-jenis-rapat', [JenisRapatController::class, 'addJenisRapat'])->name('add.jenis.rapat');

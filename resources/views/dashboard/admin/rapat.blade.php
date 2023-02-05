@@ -58,10 +58,17 @@
                       <input name="nama" type="text" class="form-control" id="nama" value="{{ old('nama') }}"
                         required>
                     </div>
-                    <div class="form-group">
-                      <label for="pimpinan_rapat">Pimpinan Rapat</label>
-                      <input name="pimpinan_rapat" type="text" class="form-control" id="pimpinan_rapat"
-                        value="{{ old('pimpinan_rapat') }}" required>
+                    <div class="form-row mb-3">
+                      <div class="col-6">
+                        <label for="pimpinan_rapat">Pimpinan Rapat</label>
+                        <input name="pimpinan_rapat" type="text" class="form-control" id="pimpinan_rapat"
+                          value="{{ old('pimpinan_rapat') }}" required>
+                      </div>
+                      <div class="col-6">
+                        <label for="nip_pimpinan">NIP</label>
+                        <input name="nip_pimpinan" type="text" class="form-control" id="nip_pimpinan"
+                          value="{{ old('nip_pimpinan') }}" maxlength="18" required>
+                      </div>
                     </div>
                     <div class="form-group">
                       <label for="pengisi_rapat">Pengisi Rapat</label>
@@ -70,8 +77,8 @@
                     </div>
                     <div class="form-group">
                       <label for="ruang">Ruang Rapat</label>
-                      <input name="ruang" type="text" class="form-control" id="ruang" value="{{ old('ruang') }}"
-                        required>
+                      <input name="ruang" type="text" class="form-control" id="ruang"
+                        value="{{ old('ruang') }}" required>
                     </div>
                   </div>
                   <div class="modal-footer">
@@ -196,10 +203,17 @@
                                 <input name="nama" type="text" class="form-control" id="nama"
                                   value="{{ old('nama', $rpt->nama) }}" required>
                               </div>
-                              <div class="form-group">
-                                <label for="pimpinan_rapat">Pimpinan Rapat</label>
-                                <input name="pimpinan_rapat" type="text" class="form-control" id="pimpinan_rapat"
-                                  value="{{ old('pimpinan_rapat', $rpt->pimpinan_rapat) }}" required>
+                              <div class="form-row mb-3">
+                                <div class="col-6">
+                                  <label for="pimpinan_rapat">Pimpinan Rapat</label>
+                                  <input name="pimpinan_rapat" type="text" class="form-control" id="pimpinan_rapat"
+                                    value="{{ old('pimpinan_rapat', $rpt->pimpinan_rapat) }}" required>
+                                </div>
+                                <div class="col-6">
+                                  <label for="nip_pimpinan">NIP</label>
+                                  <input name="nip_pimpinan" type="text" class="form-control" id="nip_pimpinan"
+                                    value="{{ old('nip_pimpinan', $rpt->nip_pimpinan) }}" required>
+                                </div>
                               </div>
                               <div class="form-group">
                                 <label for="pengisi_rapat">Pengisi Rapat</label>

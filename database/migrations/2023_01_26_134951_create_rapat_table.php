@@ -18,6 +18,7 @@ class CreateRapatTable extends Migration
             $table->foreignId('jenis_rapat_id');
             $table->string('kode')->unique();
             $table->string('nama');
+            $table->string('nip_pimpinan')->nullable();
             $table->string('slug');
             $table->string('ruang');
             $table->string('pengisi_rapat')->nullable();

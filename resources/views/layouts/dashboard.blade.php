@@ -7,7 +7,7 @@
   <title>Sinora | {{ $title }}</title>
 
   {{-- Data table edit sendiri --}}
-  <script src="{{ asset('datatable/jquery-3.6.0.min.js') }}"></script>
+  <script src="{{ asset('datatable/jquery-3.6.0.js') }}"></script>
   <script src="{{ asset('datatable/datatables.min.js') }}"></script>
 
   <link rel="stylesheet" href="{{ asset('') }}/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
@@ -242,12 +242,12 @@
   <!-- Toastr -->
   <script src="{{ asset('') }}/plugins/toastr/toastr.min.js"></script>
   @stack('script')
-
   <script>
     $(document).ready(function() {
       $('#tabel-data').DataTable();
     });
   </script>
+
 </body>
 
 </html>

@@ -50,6 +50,7 @@ class ManajemenUserController extends Controller
             'email' => 'required',
             'level' => 'required',
             'password' => 'confirmed',
+            'status' => 'required',
         ]);
 
         $user = User::findOrFail($id);
@@ -62,8 +63,16 @@ class ManajemenUserController extends Controller
             'name' => ucfirst($request->name),
             'email' => $request->email,
             'level' => $request->level,
-            'password' => Hash::make($password),
+            // 'password' => Hash::make($password),
+            'status' => $request->status,
         ]);
         return back()->with('success', 'Data user berhasil diupdate.');
+    }
+
+    public function reset(User $user)
+    {
+        $defaultPassword = Hash::make('user123');
+        $user->update(['password' => $defaultPassword]);
+        return back()->with('success', 'Password user telah direset ke "user123".');
     }
 }

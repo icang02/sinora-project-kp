@@ -20,11 +20,11 @@
     <table width="100%" ellpadding="0" cellspacing="0" style="line-height:23px;">
       <tr>
         <td>
-          {{-- <img src="{{ url('img/bkkbn.png') }}" alt="Logo" width="120" style="margin-top: -40px;"> --}}
+          <img src="{{ url('img/bkkbn.png') }}" alt="Logo" width="120" style="margin-top: -40px;">
         </td>
         <td style="text-align: center;">
-          <div>PEMERINTAH PROVINSI SULAWESI TENGGARA</div>
-          <div>PERWAKILAN BKKBN PROVINSI SULAWESI TENGGARA</div>
+          <div>PERWAKILAN BADAN KEPENDUDUKAN DAN</div>
+          <div>KELUARGA BERENCANA NASIONAL PROVINSI SULAWESI TENGGARA</div>
           <small>Jl. Balaikota no. 5 Kendari, Sulawesi Tenggara 93117</small> <br>
           <small>Telp. (0401) 3121563, FaX. (0401) 3121009, Website : sultra.bkkbn.go.id</small>
         </td>

@@ -33,6 +33,7 @@ class RapatController extends Controller
         $request->validate([
             'jenis_rapat' => 'required',
             'nama' => 'required',
+            'nip_pimpinan' => 'required',
             'ruang' => 'required',
             'pengisi_rapat' => 'required',
             'pimpinan_rapat' => 'required',
@@ -54,6 +55,7 @@ class RapatController extends Controller
                 'jenis_rapat_id' => $request->jenis_rapat,
                 'kode' => 'R.' . str_pad($rapatId, 4, '0', STR_PAD_LEFT) . '.' . date('Y'),
                 'nama' => Str::title($request->nama),
+                'nip_pimpinan' => $request->nip_pimpinan,
                 'slug' => Str::slug($request->nama),
                 'ruang' => ucfirst($request->ruang),
                 'pengisi_rapat' => ucfirst($request->pengisi_rapat),

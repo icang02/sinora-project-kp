@@ -36,7 +36,7 @@
                         <option value="">Pilih ...</option>
                         <option value="Administrator" @if (old('level') == 'Administrator') selected @endif>Administrator
                         </option>
-                        <option value="User" @if (old('level') == 'User') selected @endif>User</option>
+                        <option value="Pegawai" @if (old('level') == 'Pegawai') selected @endif>Pegawai</option>
                       </select>
                     </div>
                     <div class="form-group">
@@ -61,7 +61,7 @@
 
 
           @if (session('success'))
-            <div class="alert alert-success alert-dismissible fade show mt-2" role="alert">
+            <div id="alert" class="alert alert-success alert-dismissible fade show mt-2" role="alert">
               {{ session('success') }}
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -69,7 +69,7 @@
             </div>
           @endif
           @error('password')
-            <div class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
+            <div id="alert" class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
               {{ $message }}
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -111,13 +111,21 @@
                         @endif
                       </td>
                       <td>
-                        <button class="btn btn-info btn-sm" data-toggle="modal"
-                          data-target="#modalEdit{{ $user->id }}">Edit</button>
-                        <form action="{{ route('delete.user', $user->id) }}" method="post" class="d-inline">
-                          @method('delete')
-                          @csrf
-                          <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
-                        </form>
+                        @if ($user->email == auth()->user()->email)
+                          <a href="{{ route('profil') }}" class="btn btn-info btn-sm">Profil</a>
+                        @else
+                          <button class="btn btn-info btn-sm" data-toggle="modal"
+                            data-target="#modalEdit{{ $user->id }}">Edit</button>
+                        @endif
+                        @if ($user->email == auth()->user()->email)
+                          <div class="btn btn-danger btn-sm disabled">Hapus</div>
+                        @else
+                          <form action="{{ route('delete.user', $user->id) }}" method="post" class="d-inline">
+                            @method('delete')
+                            @csrf
+                            <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+                          </form>
+                        @endif
                       </td>
                     </tr>
 
@@ -158,6 +166,25 @@
                                 </select>
                               </div>
                               <div class="form-group">
+                                <label for="status">Status</label>
+                                <select name="status" class="form-control" id="status" required>
+                                  <option value="">Pilih ...</option>
+                                  <option value="aktif" @if (old('status', $user->status) == 'aktif') selected @endif>
+                                    Aktif
+                                  </option>
+                                  <option value="tidak aktif" @if (old('status', $user->status) == 'tidak aktif') selected @endif>Tidak
+                                    Aktif
+                                  </option>
+                                </select>
+                              </div>
+                              <div class="form-group">
+                                <label for="password">Password</label> <br>
+                                <div onclick="location.href='{{ route('reset', $user->id) }}';"
+                                  class="btn btn-danger mb-2">Reset Password</div>
+                                <div class="text-form text-muted">Password user akan direset menjadi "user123".</div>
+                              </div>
+
+                              {{-- <div class="form-group">
                                 <label for="password">Password</label>
                                 <input name="password" type="password" class="form-control" id="password"
                                   autocomplete="off" placeholder="******">
@@ -166,7 +193,7 @@
                                 <label for="password">Konfirmasi Password</label>
                                 <input name="password_confirmation" type="password" class="form-control"
                                   id="password" autocomplete="off" placeholder="******">
-                              </div>
+                              </div> --}}
                             </div>
                             <div class="modal-footer">
                               <button type="submit" class="btn btn-primary">Update Data</button>
