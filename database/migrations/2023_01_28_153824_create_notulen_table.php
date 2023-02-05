@@ -19,7 +19,6 @@ class CreateNotulenTable extends Migration
             $table->string('notulis')->nullable();
             $table->string('nip')->nullable();
             $table->string('jabatan')->nullable();
-            $table->string('divisi')->nullable();
             $table->string('pangkat')->nullable();
             $table->text('pembahasan')->nullable();
             $table->timestamps();

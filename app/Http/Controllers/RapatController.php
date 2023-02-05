@@ -12,11 +12,18 @@ use Illuminate\Support\Str;
 
 class RapatController extends Controller
 {
-    public function index()
+    public function index($status = null)
     {
+        $status = str_replace('-', ' ', $status);
+        if ($status == null) {
+            $rapat = Rapat::orderBy('tanggal')->get();
+        } else {
+            $rapat = Rapat::where('status', $status)->orderBy('tanggal')->get();
+        }
+
         return view('dashboard.admin.rapat', [
             'title' => 'Data Rapat',
-            'rapat' => Rapat::orderBy('tanggal')->get(),
+            'rapat' => $rapat,
             'jenisRapat' => JenisRapat::all(),
         ]);
     }

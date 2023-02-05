@@ -7,7 +7,9 @@ use App\Http\Controllers\JenisRapatController;
 use App\Http\Controllers\ManajemenUserController;
 use App\Http\Controllers\NotulenController;
 use App\Http\Controllers\PesertaController;
+use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\RapatController;
+use App\Models\Notulen;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,6 +29,10 @@ Route::get('/', function () {
     ]);
 })->name('dashboard')->middleware('auth');
 
+Route::get('/profil', [ProfilController::class, 'index'])->name('profil')->middleware('auth');
+Route::put('/update-profil/{user}', [ProfilController::class, 'updateProfil'])->name('update.profil')->middleware('auth');
+Route::put('/change-password/{user}', [ProfilController::class, 'changePassword'])->name('change.password')->middleware('auth');
+
 // ROUTE HALAMAN ADMINISTRATOR
 Route::get('/manajemen-user', [ManajemenUserController::class, 'index'])->name('manajemen.user')->middleware(['auth', 'can:admin']);
 Route::post('/add-user', [ManajemenUserController::class, 'addUser'])->name('add.user');
@@ -38,10 +44,12 @@ Route::post('/add-jenis-rapat', [JenisRapatController::class, 'addJenisRapat'])-
 Route::delete('/delete-jenis-rapat/{id}', [JenisRapatController::class, 'deleteJenisRapat'])->name('delete.jenis.rapat');
 Route::put('/update-jenis-rapat/{id}', [JenisRapatController::class, 'updateJenisRapat'])->name('update.jenis.rapat');
 
-Route::get('/rapat', [RapatController::class, 'index'])->name('rapat')->middleware('auth');
+Route::get('/data-rapat/{rapat:status?}', [RapatController::class, 'index'])->name('rapat')->middleware('auth');
 Route::get('/rapat/{rapat:slug}', [RapatController::class, 'detailRapat'])->name('detail.rapat')->middleware('auth');
 Route::post('/add-rapat', [RapatController::class, 'addRapat'])->name('add.rapat');
 Route::put('/update-rapat/{rapat:slug}', [RapatController::class, 'updateRapat'])->name('update.rapat');
+
+// BATAS RAPAT
 
 Route::post('/add-peserta', [PesertaController::class, 'addPeserta'])->name('add.peserta');
 Route::delete('/delete-peserta/{peserta}', [PesertaController::class, 'deletePeserta'])->name('delete.peserta');
@@ -71,3 +79,11 @@ Route::post('/akhiri-rapat', [NotulenController::class, 'akhiriRapat'])->name('a
 
 Route::get('/notulen/edit/{id}', [NotulenController::class, 'editNotulen'])->name('edit.notulen')->middleware(['auth', 'can:pegawai']);
 Route::put('/notulen/update/{notulen}', [NotulenController::class, 'updateNotulen'])->name('update.notulen')->middleware(['auth', 'can:pegawai']);
+
+Route::get('/lihat-notulen/{id}', [NotulenController::class, 'viewPdf'])->name('lihat.notulen');
+Route::get('/lihat-notulen/unduh/{id}', [NotulenController::class, 'viewPdf'])->name('download.notulen');
+// Route::get('/downlad-notulen/{id}', [NotulenController::class, 'download'])->name('download.notulen');
+
+
+// TEMPLATE PRINT DAFTAR HADIR
+Route::get('/print-absen/{rapat}', [AuthAbsenController::class, 'printAbsen'])->name('print.absen');

@@ -1,5 +1,11 @@
 @extends('layouts.dashboard')
 @section('main-content')
+  <style>
+    .dt-buttons {
+      display: none;
+    }
+  </style>
+
   <section class="content">
     <div class="container-fluid">
       <div class="row">
@@ -133,46 +139,25 @@
             </div>
           @endcan
 
+          {{-- TOAST ALERT --}}
           @if (session('success'))
-            <div class="alert alert-success alert-dismissible fade show mt-2" role="alert">
-              {!! session('success') !!}
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
+            <button id="modal" type="button" style="display: none;"
+              class="btn btn-success toastrDefaultSuccess"></button>
           @endif
-          @if (session('info'))
-            <div class="alert alert-info alert-dismissible fade show mt-2" role="alert">
-              {!! session('info') !!}
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-          @endif
-          @error('nama')
-            <div class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
-              {!! $message !!}
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-          @enderror
-          @error('file')
-            <div class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
-              {!! $message !!}
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-          @enderror
 
-          <script>
-            function copyText() {
-              var copyText = document.getElementById("text-copy");
-              copyText.select();
-              document.execCommand("copy");
-            }
-          </script>
+          @push('script')
+            <script>
+              setTimeout(function() {
+                document.getElementById("modal").click();
+              }, 100);
+
+              $(function() {
+                $('.toastrDefaultSuccess').click(function() {
+                  toastr.success("{{ session('success') }}")
+                });
+              });
+            </script>
+          @endpush
 
           <div class="card mt-2">
             <div class="card-header">
@@ -282,20 +267,20 @@
                       <td class="font-weight-bold">{{ isset($rapat->notulen->nip) ? $rapat->notulen->nip : '-' }}</td>
                     </tr>
                     <tr>
-                      <td style="width: 150px;">Pangkat / Jabatan</td>
+                      <td style="width: 150px;">Pangkat</td>
                       <td style="width: 15px;">:</td>
                       <td class="font-weight-bold">
                         @if (isset($rapat->notulen->pangkat) && isset($rapat->notulen->jabatan))
-                          {{ $rapat->notulen->pangkat }} / {{ $rapat->notulen->jabatan }}
+                          {{ $rapat->notulen->pangkat }}
                         @else
                           -
                         @endif
                       </td>
                     </tr>
                     <tr>
-                      <td style="width: 150px;">Divisi</td>
+                      <td style="width: 150px;">Jabatan</td>
                       <td style="width: 15px;">:</td>
-                      <td class="font-weight-bold">{{ $rapat->notulen->divisi ?? '-' }}</td>
+                      <td class="font-weight-bold">{{ $rapat->notulen->jabatan ?? '-' }}</td>
                     </tr>
                   </table>
                 </div>
@@ -305,8 +290,10 @@
                     @can('pegawai')
                       <a href="{{ route('edit.notulen', $rapat->id) }}" class="btn btn-secondary btn-sm">Edit Notulen</a>
                     @endcan
-                    <button class="btn btn-secondary btn-sm">Lihat Notulen</button>
-                    <button class="btn btn-secondary btn-sm">Cetak Notulen</button>
+                    <a href="{{ route('lihat.notulen', $rapat->notulen->id) }}" target="_blank"
+                      class="btn btn-secondary btn-sm">Print Notulen</a>
+                    <a href="{{ route('download.notulen', $rapat->notulen->id) }}"
+                      class="btn btn-secondary btn-sm">Unduh</a>
                     @can('pegawai')
                       <a href="{{ route('dokumentasi', $rapat->slug) }}" class="btn btn-secondary btn-sm">Dokumentasi
                         Rapat</a>
@@ -324,8 +311,12 @@
                   <div>
                     <button class="btn btn-info btn-sm badge" data-toggle="modal" data-target="#modalTambah">Tambah
                       Peserta</button>
+                    <a href="{{ route('print.absen', $rapat->id) }}" target="_blank"
+                      class="btn btn-secondary btn-sm badge">Print
+                      Daftar Hadir</a>
                     <button class="btn btn-secondary btn-sm badge" data-toggle="modal" data-target="#modalAbsen">File
                       Daftar Hadir</button>
+
                   </div>
                 @endcan
               </div>
@@ -378,4 +369,19 @@
     </div>
     <!-- /.container-fluid -->
   </section>
+
+  <script>
+    function copyText() {
+      var copyText = document.getElementById("text-copy");
+      copyText.select();
+      document.execCommand("copy");
+    }
+
+    // HAPUS ELEMENT BAWAAN PRINT
+    window.onload = function() {
+      const element = document.querySelector('.dt-buttons');
+      element.parentNode.removeChild(element);
+    }
+  </script>
+
 @endsection

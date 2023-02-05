@@ -5,13 +5,13 @@
       <div class="row">
         <div class="col-12">
 
-          <button class="btn btn-primary" data-toggle="modal" data-target="#modalTambah">Tambah Data</button>
+          <button class="btn btn-primary" data-toggle="modal" data-target="#modalTambah">Buat Rapat</button>
           <!-- Modal -->
           <div class="modal fade" id="modalTambah" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Buat Rapat</h5>
+                  <h5 class="modal-title" id="exampleModalLabel">Tambah Rapat</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -75,7 +75,7 @@
                     </div>
                   </div>
                   <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Tambah Data</button>
+                    <button type="submit" class="btn btn-primary">Buat Rapat</button>
                     <button class="btn btn-secondary" data-dismiss="modal">Kembali</button>
                   </div>
                 </form>
@@ -84,29 +84,13 @@
           </div>
 
           @if (session('success'))
-            <div class="alert alert-success alert-dismissible fade show mt-2" role="alert">
-              {!! session('success') !!}
+            <div class="alert alert-success alert-dismissible fade show mt-2" id="alert" role="alert">
+              {{ session('success') }}
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
           @endif
-          {{-- @if (session('info'))
-            <div class="alert alert-info alert-dismissible fade show mt-2" role="alert">
-              {!! session('info') !!}
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-          @endif --}}
-          {{-- @error('nama')
-            <div class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
-              {!! $message !!}
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-          @enderror --}}
 
           <div class="card mt-2">
             <div class="card-header">
@@ -114,7 +98,7 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-              <table id="example1" class="table table-bordered table-striped">
+              <table id="tabel-data" class="table table-bordered table-striped">
                 <thead>
                   <tr>
                     <th>#</th>

@@ -6,10 +6,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Sinora | {{ $title }}</title>
 
+  {{-- ALERT NOTIFICATION --}}
+  <link rel="stylesheet" href="{{ asset('') }}/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+  <!-- Toastr -->
+  <link rel="stylesheet" href="{{ asset('') }}/plugins/toastr/toastr.min.css">
+
   <link rel="icon" type="image/x-icon" href="{{ asset('img/favicon.ico') }}">
 
   <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{ asset('') }}plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
@@ -39,108 +45,30 @@
 <body class="hold-transition sidebar-mini layout-fixed">
   <div class="wrapper">
 
-    <!-- Navbar -->
-    {{-- <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-      <!-- Left navbar links -->
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-          <a href="index3.html" class="nav-link">Administrator</a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-          <a href="#" class="nav-link">|</a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-          <a href="#"
-            class="nav-link">{{ Carbon\Carbon::createFromDate(date('Y-m-d'))->translatedFormat('l, d F Y') }} — <span
-              id="jam"></span></a>
-        </li>
-      </ul>
-
-      <!-- Right navbar links -->
-      <ul class="navbar-nav ml-auto">
-        <!-- Navbar Search -->
-        <li class="nav-item">
-          <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-            <i class="fas fa-search"></i>
-          </a>
-          <div class="navbar-search-block">
-            <form class="form-inline">
-              <div class="input-group input-group-sm">
-                <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-                <div class="input-group-append">
-                  <button class="btn btn-navbar" type="submit">
-                    <i class="fas fa-search"></i>
-                  </button>
-                  <button class="btn btn-navbar" type="button" data-widget="navbar-search">
-                    <i class="fas fa-times"></i>
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-            <i class="fas fa-expand-arrows-alt"></i>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-widget="control-sidebar" data-controlsidebar-slide="true" href="#"
-            role="button">
-            <i class="fas fa-th-large"></i>
-          </a>
-        </li>
-      </ul>
-
-      <script type="text/javascript">
-        window.onload = function() {
-          jam();
-        }
-
-        function jam() {
-          var e = document.getElementById('jam'),
-            d = new Date(),
-            h, m, s;
-          h = d.getHours();
-          m = set(d.getMinutes());
-          s = set(d.getSeconds());
-
-          if (h < 10) {
-            h = '0' + h;
-          }
-
-          e.innerHTML = h + ':' + m + ':' + s;
-
-          setTimeout('jam()', 1000);
-        }
-
-        function set(e) {
-          e = e < 10 ? '0' + e : e;
-          return e;
-        }
-      </script>
-    </nav> --}}
-    <!-- /.navbar -->
-
-    <div>
+    <div style="overflow: hidden;" class="mx-2">
       <!-- Main content -->
       <div class="row justify-content-center">
         <div class="col-md-12 px-md-5 py-4">
 
-          <div class="d-flex justify-content-between">
-            <form action="{{ route('notulen.logout') }}" method="post">
+          <div class="d-flex justify-content-md-start justify-content-between mb-4">
+            <form action="{{ route('notulen.logout') }}" method="post" class="mr-md-4 mr-0">
               @csrf
-              <button type="submit" class="btn btn-secondary mb-3">LOGOUT</button>
+              <button type="submit" class="btn btn-secondary">LOGOUT</button>
             </form>
-            <div class="d-flex">
-              <label>KODE RAPAT : &nbsp;</label>
-              <input style="width: 113px;" class="form-control font-weight-bold" type="text"
-                value="{{ $rapat->kode }}" id="text-copy" readonly>
-              <button onclick="copyText()" type="button" class="btn btn-secondary">
+
+            <script>
+              function copyText() {
+                var copyText = document.getElementById("text-copy");
+                copyText.select();
+                document.execCommand("copy");
+              }
+            </script>
+
+            <div>
+              <h6 class="font-weight-bold d-inline">KODE RAPAT : &nbsp;</h6>
+              <input readonly style="width: 113px;" class="form-control form-control-sm font-weight-bold d-inline"
+                type="text" value="{{ $rapat->kode }}" id="text-copy" readonly>
+              <button onclick="copyText()" type="button" class="btn btn-secondary d-inline" style="margin-top: -4px;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                   class="bi bi-clipboard-fill" viewBox="0 0 16 16">
                   <path fill-rule="evenodd"
@@ -151,23 +79,25 @@
             </div>
           </div>
 
+          {{-- TOAST ALERT --}}
           @if (session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <button id="modal" type="button" style="display: none;"
+              class="btn btn-success toastrDefaultSuccess"></button>
+          @endif
+
+          {{-- @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" id="alert" role="alert">
               {{ session('success') }}
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
           @endif
-          @if (session('info'))
-            <div class="alert alert-info alert-dismissible fade show" role="alert">
-              {{ session('info') }}
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-          @endif
-
+          <script>
+            setTimeout(function() {
+              $('#alert').fadeOut('fast');
+            }, 1500);
+          </script> --}}
 
           <div class="card card-outline card-info">
             <div class="card-header">
@@ -181,93 +111,101 @@
               <form action="{{ route('save.notulen', $rapat->id) }}" method="POST">
                 @csrf
                 <div class="row">
-                  <div class="col-md-5">
-                    <table>
-                      <tr>
-                        <td>Agenda</td>
-                        <td class="text-right" style="width: 40px;">:</td>
-                        <td><input style="width: 350px;" type="text" class="ml-2 form-control font-weight-bold"
-                            value="{{ $rapat->nama }}">
-                      </tr>
-                      <tr>
-                        <td>Pimpinan Rapat</td>
-                        <td class="text-right" style="width: 40px;">:</td>
-                        <td><input style="width: 350px;" type="text" class="ml-2 form-control font-weight-bold"
-                            value="{{ $rapat->pimpinan_rapat }}">
-                      </tr>
-                      <tr>
-                        <td>Pengisi Rapat</td>
-                        <td class="text-right" style="width: 40px;">:</td>
-                        <td><input style="width: 350px;" type="text" class="ml-2 form-control font-weight-bold"
-                            value="{{ $rapat->pengisi_rapat }}">
-                      </tr>
-                      <tr>
-                        <td>Jumlah Peserta</td>
-                        <td class="text-right" style="width: 40px;">:</td>
-                        <td><input style="width: 350px;" type="text" class="ml-2 form-control font-weight-bold"
-                            value="@if ($jumlahPeserta == 0) - @else{{ $jumlahPeserta }} orang @endif"
-                            readonly>
-                      </tr>
-                    </table>
+                  <div class="col-md-7">
+                    <div class="row align-items-center">
+                      <div class="col-md-3">
+                        <h6>Agenda</h6>
+                      </div>
+                      <div class="col-md-9 mb-2">
+                        <input name="nama" type="text" class="form-control form-control-sm font-weight-bold"
+                          value="{{ $rapat->nama }}">
+                      </div>
+                      <div class="col-md-3">
+                        <h6>Pimpinan Rapat</h6>
+                      </div>
+                      <div class="col-md-9 mb-2">
+                        <input name="pimpinan_rapat" type="text"
+                          class="form-control form-control-sm font-weight-bold" value="{{ $rapat->pimpinan_rapat }}">
+                      </div>
+                      <div class="col-md-3">
+                        <h6>Pengisi Rapat</h6>
+                      </div>
+                      <div class="col-md-9 mb-2">
+                        <input name="pengisi_rapat" type="text" class="form-control form-control-sm font-weight-bold"
+                          value="{{ $rapat->pengisi_rapat }}">
+                      </div>
+                      <div class="col-md-3">
+                        <h6>Peserta Rapat</h6>
+                      </div>
+                      <div class="col-md-9 mb-2">
+                        <input readonly type="text" class="form-control form-control-sm font-weight-bold"
+                          value="{{ $jumlahPeserta . ' orang' ?? '-' }}">
+                      </div>
+                      <div class="col-md-3">
+                        <h6>Ruang Rapat</h6>
+                      </div>
+                      <div class="col-md-9 mb-2">
+                        <input name="ruang" type="text" class="form-control form-control-sm font-weight-bold"
+                          value="{{ $rapat->ruang }}">
+                      </div>
+                      <div class="col-md-3">
+                        <h6>Status</h6>
+                      </div>
+                      <div class="col-md-9 mb-2">
+                        <input readonly type="text" class="form-control form-control-sm font-weight-bold"
+                          value="{{ ucfirst($rapat->status) }}">
+                      </div>
+                    </div>
+
                   </div>
-                  <div class="col-md-4">
-                    <table>
-                      <tr>
-                        <td>Hari, tanggal</td>
-                        <td class="text-right" style="width: 40px;">:</td>
-                        <td><input type="text" class="ml-2 form-control font-weight-bold"
-                            value="{{ Carbon\Carbon::createFromDate($rapat->tanggal)->translatedFormat('l, jS F Y') }}"
-                            readonly>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Waktu</td>
-                        <td class="text-right" style="width: 40px;">:</td>
-                        <td><input type="text" class="ml-2 form-control font-weight-bold"
-                            value="{{ $rapat->mulai }} - {{ $rapat->selesai }} WITA" readonly></td>
-                      </tr>
-                      <tr>
-                        <td>Ruang Rapat</td>
-                        <td class="text-right" style="width: 40px;">:</td>
-                        <td><input type="text" class="ml-2 form-control font-weight-bold"
-                            value="{{ ucfirst($rapat->ruang) }}" readonly></td>
-                      </tr>
-                      <tr>
-                        <td>Status</td>
-                        <td class="text-right" style="width: 40px;">:</td>
-                        <td><input type="text" class="ml-2 form-control font-weight-bold"
-                            value="{{ ucfirst($rapat->status) }}" readonly></td>
-                      </tr>
-                    </table>
+                  <div class="col-md-5 pl-2 pl-md-5">
+                    <div class="row align-items-center">
+                      <div class="col-md-4">
+                        <h6>Hari, tanggal</h6>
+                      </div>
+                      <div class="col-md-8 mb-2">
+                        <input readonly type="text" class="form-control form-control-sm font-weight-bold"
+                          value="{{ Carbon\Carbon::createFromDate($rapat->tanggal)->translatedFormat('l, jS F Y') }}">
+                      </div>
+                      <div class="col-md-4">
+                        <h6>Waktu</h6>
+                      </div>
+                      <div class="col-md-8 mb-2">
+                        <input readonly type="text" class="form-control form-control-sm font-weight-bold"
+                          value="{{ $rapat->mulai }} - {{ $rapat->selesaii }} WTIA">
+                      </div>
+                      <div class="col-md-4">
+                        <h6>Notulis</h6>
+                      </div>
+                      <div class="col-md-8 mb-2">
+                        <input name="notulis" type="text" class="form-control form-control-sm font-weight-bold"
+                          value="{{ $rapat->notulen->notulis }}">
+                      </div>
+                      <div class="col-md-4">
+                        <h6>NIP</h6>
+                      </div>
+                      <div class="col-md-8 mb-2">
+                        <input name="nip" type="text" class="form-control form-control-sm font-weight-bold"
+                          value="{{ $rapat->notulen->nip }}">
+                      </div>
+                      <div class="col-md-4">
+                        <h6>Pangkat</h6>
+                      </div>
+                      <div class="col-md-8 mb-2">
+                        <input name="pangkat" type="text" class="form-control form-control-sm font-weight-bold"
+                          value="{{ $rapat->notulen->pangkat }}">
+                      </div>
+                      <div class="col-md-4">
+                        <h6>Jabatan</h6>
+                      </div>
+                      <div class="col-md-8 mb-2">
+                        <input name="jabatan" type="text" class="form-control form-control-sm font-weight-bold"
+                          value="{{ $rapat->notulen->jabatan }}">
+                      </div>
+                    </div>
+
                   </div>
-                  <div class="col-md-3">
-                    <table>
-                      <tr>
-                        <td>Notulis</td>
-                        <td class="text-right" style="width: 40px;">:</td>
-                        <td><input value="{{ old('notulis', $notulen->notulis) }}" type="text" name="notulis"
-                            class="ml-2 form-control font-weight-bold" required></td>
-                      </tr>
-                      <tr>
-                        <td>NIP</td>
-                        <td class="text-right" style="width: 40px;">:</td>
-                        <td><input value="{{ old('nip', $notulen->nip) }}" type="text" name="nip"
-                            class="ml-2 form-control font-weight-bold" required></td>
-                      </tr>
-                      <tr>
-                        <td>Pangkat / Jabatan</td>
-                        <td class="text-right" style="width: 40px;">:</td>
-                        <td><input value="{{ old('jabatan', $notulen->jabatan) }}" type="text" name="jabatan"
-                            class="ml-2 form-control font-weight-bold" required></td>
-                      </tr>
-                      <tr>
-                        <td>Divisi</td>
-                        <td class="text-right" style="width: 40px;">:</td>
-                        <td><input value="{{ old('divisi', $notulen->divisi) }}" type="text" name="divisi"
-                            class="ml-2 form-control font-weight-bold" required></td>
-                      </tr>
-                    </table>
-                  </div>
+
                 </div>
 
                 <hr class="bg-secondary my-4">
@@ -280,11 +218,12 @@
               </form>
             </div>
 
-            <div class="card-footer">
+            <div class="card-footer text-center">
+              <p>Akhiri rapat dengan menekan tombol dibawah.</p>
               <form action="{{ route('akhiri.rapat') }}" method="POST">
                 @csrf
-                <input type="hidden" name="rapat_id" value="{{ $notulen->rapat_id }}">
-                <button class="btn btn-danger d-block mb-2">Akhiri Rapat</button>
+                <input readonly type="hidden" name="rapat_id" value="{{ $notulen->rapat_id }}">
+                <button class="btn btn-danger d-block mb-3 mx-auto">Akhiri Rapat</button>
               </form>
               Copyright &copy; {{ date('Y') }} <a href="{{ route('notulen') }}">Notulensi BKKBN
                 Sultra</a>.
@@ -306,6 +245,8 @@
     <!-- /.control-sidebar -->
   </div>
   <!-- ./wrapper -->
+
+  {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> --}}
 
   <!-- jQuery -->
   <script src="{{ asset('') }}plugins/jquery/jquery.min.js"></script>
@@ -342,7 +283,17 @@
   <script>
     $(function() {
       // Summernote
-      $('#summernote').summernote()
+      $('#summernote').summernote({
+        height: 269,
+        toolbar: [
+          ['style', ['bold', 'italic', 'underline', 'clear']],
+          ['font', ['strikethrough', 'superscript', 'subscript']],
+          // ['fontsize', ['fontsize']],
+          ['color', ['color']],
+          ['para', ['ul', 'ol', 'paragraph']],
+          // ['height', ['height']]
+        ]
+      })
 
       // CodeMirror
       CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
@@ -350,6 +301,23 @@
         theme: "monokai"
       });
     })
+  </script>
+
+  {{-- ALERT NOTIFICATION --}}
+  <script src="{{ asset('') }}/plugins/sweetalert2/sweetalert2.min.js"></script>
+  <!-- Toastr -->
+  <script src="{{ asset('') }}/plugins/toastr/toastr.min.js"></script>
+
+  <script>
+    setTimeout(function() {
+      document.getElementById("modal").click();
+    }, 100);
+
+    $(function() {
+      $('.toastrDefaultSuccess').click(function() {
+        toastr.success("{{ session('success') }}")
+      });
+    });
   </script>
 </body>
 

@@ -6,6 +6,7 @@ use App\Models\Notulen;
 use App\Models\Peserta;
 use App\Models\Rapat;
 use Illuminate\Http\Request;
+use PDF;
 
 class NotulenController extends Controller
 {
@@ -67,9 +68,16 @@ class NotulenController extends Controller
             'notulis' => ucfirst($request->notulis),
             'nip' => $request->nip,
             'jabatan' => ucfirst($request->jabatan),
-            'divisi' => ucfirst($request->divisi),
             'pangkat' => 'Penata',
             'pembahasan' => $request->pembahasan,
+        ]);
+
+        $rapat = Rapat::find($notulen->rapat_id);
+        $rapat->update([
+            'nama' => ucfirst($request->nama),
+            'pimpinan_rapat' => ucfirst($request->pimpinan_rapat),
+            'pengisi_rapat' => ucfirst($request->pengisi_rapat),
+            'ruang' => ucfirst($request->ruang),
         ]);
 
         return back()->with('success', 'Data notulen disimpan.');
@@ -122,6 +130,21 @@ class NotulenController extends Controller
         ]);
 
         return redirect()->route('detail.rapat', $notulen->rapat->slug)->with('success', 'Data notulen berhasil diupdate.');
-        // return redirect()->route('edit.notulen', $notulen->id)->with('success', 'Data notulen telah diupdate.');
+    }
+
+    public function viewPdf($id)
+    {
+        $data = Notulen::findOrFail($id);
+        $notulen = [
+            'notulen' => $data,
+            'jumlahPeserta' => Peserta::where('rapat_id', $data->id)->where('keterangan', 'Hadir')->get()->count(),
+        ];
+
+        $pdf = PDF::loadView('template.notulen', $notulen, [], []);
+
+        if (request()->is('lihat-notulen/unduh*')) {
+            return $pdf->download('notulen-' . $data->rapat->slug . '.pdf');
+        }
+        return $pdf->stream('notulen-' . $data->rapat->slug . '.pdf');
     }
 }

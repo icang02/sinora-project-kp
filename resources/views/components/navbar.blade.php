@@ -16,8 +16,9 @@
     </li>
     <li class="nav-item d-none d-sm-inline-block">
       <a href="#"
-        class="nav-link">{{ Carbon\Carbon::createFromDate(date('Y-m-d'))->translatedFormat('l, d F Y') }} — <span
+        class="nav-link">{{ Carbon\Carbon::createFromDate(date('Y-m-d'))->translatedFormat('l, jS F Y') }} — <span
           id="jam"></span></a>
+
     </li>
   </ul>
 

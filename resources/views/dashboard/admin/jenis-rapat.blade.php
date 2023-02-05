@@ -28,8 +28,8 @@
                     </div>
                   </div>
                   <div class="modal-footer">
-                    <button class="btn btn-secondary" data-dismiss="modal">Kembali</button>
                     <button type="submit" class="btn btn-primary">Tambah Data</button>
+                    <button class="btn btn-secondary" data-dismiss="modal">Kembali</button>
                   </div>
                 </form>
               </div>
@@ -38,7 +38,7 @@
 
 
           @if (session('success'))
-            <div class="alert alert-success alert-dismissible fade show mt-2" role="alert">
+            <div id="alert" class="alert alert-success alert-dismissible fade show mt-2" role="alert">
               {!! session('success') !!}
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -46,7 +46,7 @@
             </div>
           @endif
           @if (session('info'))
-            <div class="alert alert-info alert-dismissible fade show mt-2" role="alert">
+            <div id="alert" class="alert alert-info alert-dismissible fade show mt-2" role="alert">
               {!! session('info') !!}
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -54,7 +54,7 @@
             </div>
           @endif
           @error('nama')
-            <div class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
+            <div id="alert" class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
               {!! $message !!}
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -68,9 +68,8 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-
               <div class="col-md-9">
-                <table id="example1" class="table table-sm table-bordered table-striped">
+                <table id="tabel-data" class="table table-sm table-bordered table-striped">
                   <thead>
                     <tr>
                       <th>#</th>
@@ -116,8 +115,8 @@
                                 </div>
                               </div>
                               <div class="modal-footer">
-                                <button class="btn btn-secondary" data-dismiss="modal">Kembali</button>
                                 <button type="submit" class="btn btn-primary">Update Data</button>
+                                <button class="btn btn-secondary" data-dismiss="modal">Kembali</button>
                               </div>
                             </form>
                           </div>

@@ -6,6 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Sinora | {{ $title }}</title>
 
+  {{-- Data table edit sendiri --}}
+  <script src="{{ asset('datatable/jquery-3.6.0.min.js') }}"></script>
+  <script src="{{ asset('datatable/datatables.min.js') }}"></script>
+
+  <link rel="stylesheet" href="{{ asset('') }}/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+  <!-- Toastr -->
+  <link rel="stylesheet" href="{{ asset('') }}/plugins/toastr/toastr.min.css">
+
   {{-- Gallery --}}
   <link rel="stylesheet" href="{{ asset('') }}plugins/ekko-lightbox/ekko-lightbox.css">
 
@@ -99,6 +107,13 @@
   </div>
   <!-- ./wrapper -->
 
+  <script>
+    setTimeout(function() {
+      $('#alert').fadeOut('fast');
+    }, 3000);
+  </script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <!-- jQuery -->
   <script src="{{ asset('') }}plugins/jquery/jquery.min.js"></script>
   <!-- jQuery UI 1.11.4 -->
@@ -177,7 +192,17 @@
   <script>
     $(function() {
       // Summernote
-      $('#summernote').summernote()
+      $('#summernote').summernote({
+        height: 280,
+        toolbar: [
+          ['style', ['bold', 'italic', 'underline', 'clear']],
+          ['font', ['strikethrough', 'superscript', 'subscript']],
+          // ['fontsize', ['fontsize']],
+          ['color', ['color']],
+          ['para', ['ul', 'ol', 'paragraph']],
+          // ['height', ['height']]
+        ]
+      })
 
       // CodeMirror
       CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
@@ -209,6 +234,19 @@
         $(this).addClass('active');
       });
     })
+  </script>
+
+
+  {{-- ALERT NOTIFICATION --}}
+  <script src="{{ asset('') }}/plugins/sweetalert2/sweetalert2.min.js"></script>
+  <!-- Toastr -->
+  <script src="{{ asset('') }}/plugins/toastr/toastr.min.js"></script>
+  @stack('script')
+
+  <script>
+    $(document).ready(function() {
+      $('#tabel-data').DataTable();
+    });
   </script>
 </body>
 

@@ -9,6 +9,7 @@ use App\Models\Rapat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use PDF;
 
 class AuthAbsenController extends Controller
 {
@@ -113,5 +114,17 @@ class AuthAbsenController extends Controller
         $fileAsli = $fileAbsen->file_asli;
 
         return Storage::download($file, $fileAsli);
+    }
+
+    public function printAbsen(Rapat $rapat)
+    {
+        $data = [
+            'peserta' => $rapat->peserta,
+            'rapat' => $rapat
+        ];
+
+        $pdf = PDF::loadView('template.absensi', $data, [], []);
+
+        return $pdf->stream('absensi-' . $rapat->slug . '.pdf');
     }
 }
