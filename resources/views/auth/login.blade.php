@@ -2,113 +2,128 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Sinora | {{ $title }}</title>
-
-  <link rel="icon" type="image/x-icon" href="{{ asset('img/favicon.ico') }}">
-
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="{{ asset('') }}plugins/fontawesome-free/css/all.min.css">
-  <!-- icheck bootstrap -->
-  <link rel="stylesheet" href="{{ asset('') }}plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="{{ asset('') }}dist/css/adminlte.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--===============================================================================================-->
+  <link rel="icon" type="image/png" href="{{ asset('img/favicon.ico') }}" />
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="{{ asset('login-user') }}/vendor/bootstrap/css/bootstrap.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css"
+    href="{{ asset('login-user') }}/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="{{ asset('login-user') }}/vendor/animate/animate.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="{{ asset('login-user') }}/vendor/css-hamburgers/hamburgers.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="{{ asset('login-user') }}/vendor/select2/select2.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="{{ asset('login-user') }}/css/util.css">
+  <link rel="stylesheet" type="text/css" href="{{ asset('login-user') }}/css/main.css">
+  <!--===============================================================================================-->
 </head>
 
-<body class="hold-transition login-page">
-  <div class="login-box">
-    <!-- /.login-logo -->
-    <div class="card card-outline card-primary">
-      <div class="card-header text-center">
-        <a href="{{ route('notulen') }}" class="h1"><b>Notulen</b> Login</a>
-      </div>
-      <div class="card-body">
-        <p class="text-center">Masukan email dan password Anda.</p>
+<body>
 
-        @if (session('success'))
-          <div class="alert alert-success alert-dismissible fade show mt-2" role="alert">
-            {!! session('success') !!}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-        @endif
-        @if (session('info'))
-          <div class="alert alert-info alert-dismissible fade show mt-2" role="alert">
-            {!! session('info') !!}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-        @endif
-        @if (session('danger'))
-          <div class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
-            {!! session('danger') !!}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-        @endif
+  <div class="limiter" style="background-color: red !important;">
+    <div class="container-login100">
+      <div class="wrap-login100">
+        <div class="login100-pic js-tilt text-center" data-tilt>
+          {{-- <img src="{{ asset('login-user') }}/images/img-01.png" alt="IMG"> --}}
+          <img src="{{ asset('img/logo_bkkbn.png') }}" alt="IMG">
+          <h6 style="margin-top: -10px; margin-left: 4px; letter-spacing: 6px;">Sulawesi Tenggara</h6>
+        </div>
 
-        <form action="#" method="post">
+        <form class="login100-form validate-form" action="{{ route('login') }}" method="post">
           @csrf
-          <div class="input-group mb-3">
-            <input name="email" type="email" class="form-control @error('email') is-invalid @enderror"
-              placeholder="Email" value="{{ old('email') }}" required autofocus>
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-envelope"></span>
-              </div>
+          <span class="login100-form-title">
+            Sinora Login
+          </span>
+
+          @if (session('danger'))
+            <div id="alert" class="alert alert-danger alert-dismissible fade show mt-2" style="border-radius: 25px;"
+              role="alert">
+              <small>{!! session('danger') !!}</small>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
             </div>
-            @error('email')
-              <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
+          @endif
+          {{-- @error('email')
+            <div id="alert" class="alert alert-danger alert-dismissible fade show mt-2" style="border-radius: 25px;"
+              role="alert">
+              <small>{!! session('danger') !!}</small>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          @enderror --}}
+
+          <div class="wrap-input100 validate-input" data-validate="Email yang valid: ex@gmail.com">
+            <input value="{{ old('email') }}" name="email" class="input100" type="email" name="email"
+              placeholder="Email">
+            <span class="focus-input100"></span>
+            <span class="symbol-input100">
+              <i class="fa fa-envelope" aria-hidden="true"></i>
+            </span>
           </div>
-          <div class="input-group mb-3">
-            <input name="password" type="password" class="form-control" placeholder="Password" required
-              autocomplete="off">
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-lock"></span>
-              </div>
-            </div>
+
+          <div class="wrap-input100 validate-input" data-validate="Password wajib diisi">
+            <input name="password" autocomplete="off" class="input100" type="password" name="pass"
+              placeholder="Password">
+            <span class="focus-input100"></span>
+            <span class="symbol-input100">
+              <i class="fa fa-lock" aria-hidden="true"></i>
+            </span>
           </div>
-          <div class="row">
-            <div class="col-12">
-              <div class="icheck-primary">
-                <input type="checkbox" id="remember">
-                <label for="remember">
-                  Remember Me
-                </label>
-              </div>
-            </div>
-            <!-- /.col -->
-            <div class="col-12 mt-3">
-              <button type="submit" class="btn btn-primary btn-block">Login</button>
-            </div>
-            <!-- /.col -->
+
+          <div class="container-login100-form-btn">
+            <button type="submit" class="login100-form-btn">
+              Login
+            </button>
+          </div>
+
+          {{-- <div class="text-center p-t-12">
+            <span class="txt1">
+              Forgot
+            </span>
+            <a class="txt2" href="#">
+              Username / Password?
+            </a>
+          </div> --}}
+
+          <div class="text-center p-t-136">
+            <button class="txt2">
+              Sistem Informasi Notulensi Rapat <br>Perwakilan BKKBN Sulawesi Tenggara
+              {{-- <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i> --}}
+            </button>
           </div>
         </form>
-
-        {{-- <p class="mb-0">
-          <a href="register.html" class="text-center">Register a new membership</a>
-        </p> --}}
       </div>
-      <!-- /.card-body -->
     </div>
-    <!-- /.card -->
   </div>
-  <!-- /.login-box -->
 
-  <!-- jQuery -->
-  <script src="{{ asset('') }}plugins/jquery/jquery.min.js"></script>
-  <!-- Bootstrap 4 -->
-  <script src="{{ asset('') }}plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <!-- AdminLTE App -->
-  <script src="{{ asset('') }}dist/js/adminlte.min.js"></script>
+
+
+
+  <!--===============================================================================================-->
+  <script src="{{ asset('login-user') }}/vendor/jquery/jquery-3.2.1.min.js"></script>
+  <!--===============================================================================================-->
+  <script src="{{ asset('login-user') }}/vendor/bootstrap/js/popper.js"></script>
+  <script src="{{ asset('login-user') }}/vendor/bootstrap/js/bootstrap.min.js"></script>
+  <!--===============================================================================================-->
+  <script src="{{ asset('login-user') }}/vendor/select2/select2.min.js"></script>
+  <!--===============================================================================================-->
+  <script src="{{ asset('login-user') }}/vendor/tilt/tilt.jquery.min.js"></script>
+  <script>
+    $('.js-tilt').tilt({
+      scale: 1.1
+    })
+  </script>
+  <!--===============================================================================================-->
+  <script src="{{ asset('login-user') }}/js/main.js"></script>
+
 </body>
 
 </html>
