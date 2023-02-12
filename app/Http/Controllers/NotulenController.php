@@ -91,6 +91,16 @@ class NotulenController extends Controller
 
     public function akhiriRapat(Request $request)
     {
+        $notulen = Notulen::findOrFail($request->notulen_id);
+        if (
+            $notulen->nip == null ||
+            $notulen->jabatan == null ||
+            $notulen->pangkat == null ||
+            $notulen->pembahasan == null
+        ) {
+            return back()->with('danger', 'Data rapat belum lengkap.')->withInput();
+        }
+
         $rapat = Rapat::find($request->rapat_id);
         $rapat->update(['status' => 'selesai']);
         $request->session()->forget('isLogin');
@@ -145,6 +155,7 @@ class NotulenController extends Controller
         if (request()->is('lihat-notulen/unduh*')) {
             return $pdf->download('notulen-' . $data->rapat->slug . '.pdf');
         }
-        return $pdf->stream('notulen-' . $data->rapat->slug . '.pdf');
+        dd($pdf->stream('notulen-' . $data->rapat->slug . '.pdf'));
+        // return $pdf->stream('notulen-' . $data->rapat->slug . '.pdf');
     }
 }

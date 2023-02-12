@@ -2,179 +2,206 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
+  <title>Sinora | <?= $title ?></title>
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sinora | {{ $title }}</title>
-
-  <link rel="icon" type="image/x-icon" href="{{ asset('img/favicon.ico') }}">
-
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="{{ asset('') }}plugins/fontawesome-free/css/all.min.css">
-  <!-- icheck bootstrap -->
-  <link rel="stylesheet" href="{{ asset('') }}plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="{{ asset('') }}dist/css/adminlte.min.css">
+  <!--===============================================================================================-->
+  <link rel="icon" type="image/png" href="{{ asset('img/favicon.ico') }}" />
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="{{ asset('login-notulen') }}/vendor/bootstrap/css/bootstrap.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css"
+    href="{{ asset('login-notulen') }}/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css"
+    href="{{ asset('login-notulen') }}/fonts/iconic/css/material-design-iconic-font.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="{{ asset('login-notulen') }}/vendor/animate/animate.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="{{ asset('login-notulen') }}/vendor/css-hamburgers/hamburgers.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="{{ asset('login-notulen') }}/vendor/animsition/css/animsition.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="{{ asset('login-notulen') }}/vendor/select2/select2.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="{{ asset('login-notulen') }}/vendor/daterangepicker/daterangepicker.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="{{ asset('login-notulen') }}/css/util.css">
+  <link rel="stylesheet" type="text/css" href="{{ asset('login-notulen') }}/css/main.css">
+  <!--===============================================================================================-->
 </head>
 
-<body class="hold-transition login-page">
-  <div class="login-box">
-    <!-- /.login-logo -->
-    <div class="card card-outline card-primary">
-      <div class="card-header text-center">
-        <a href="{{ route('absen') }}" class="h1"><b>Absensi</b> Rapat</a>
-      </div>
-      <div class="card-body">
-        <p class="text-center">Isi data Anda untuk melakukan presensi.</p>
+<body>
 
-        @if (session('success'))
-          <div class="alert alert-success alert-dismissible fade show mt-2" role="alert">
-            {!! session('success') !!}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-        @endif
-        @if (session('info'))
-          <div class="alert alert-info alert-dismissible fade show mt-2" role="alert">
-            {!! session('info') !!}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-        @endif
-        @if (session('danger'))
-          <div class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
-            {!! session('danger') !!}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-        @endif
+  <div class="limiter">
+    <div class="container-login100">
+      <div class="wrap-login100" style="width: 600px;">
+        <form class="login100-form validate-form" action="{{ route('process.absen') }}" method="post">
+          {{ csrf_field() }}
+          <span class="login100-form-title p-b-26">
+            Absensi Rapat
+          </span>
+          <span class="login100-form-title p-b-48">
+            {{-- <i class="zmdi zmdi-font"></i> --}}
+            <img src="{{ asset('img/bkkbn.png') }}" class="img-fluid" width="150"> <br>
+            <p style="font-size: 0.8rem;">Sulawesi Tenggara</p>
+          </span>
 
-        <form action="{{ route('process.absen') }}" method="post">
-          @csrf
-          <div class="form-group">
-            <label for="nama">Kode Rapat</label>
-            <input name="kode" type="text" class="form-control" id="nama" required
-              value="{{ old('kode') }}" minlength="11" maxlength="11">
+
+          @if (session('success'))
+            <div style="margin-bottom: 35px;" class="alert alert-success alert-dismissible fade show" role="alert"
+              style="border-radius: 25px;">
+              <small>
+                {!! session('success') !!}
+              </small>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          @endif
+          @if (session('info'))
+            <div style="margin-bottom: 35px;" class="alert alert-info alert-dismissible fade show" role="alert"
+              style="border-radius: 25px;">
+              <small>
+                {!! session('info') !!}
+              </small>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          @endif
+          @if (session('danger'))
+            <div style="margin-bottom: 35px;" class="alert alert-danger alert-dismissible fade show" role="alert"
+              style="border-radius: 25px;">
+              <small>
+                {!! session('danger') !!}
+              </small>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          @endif
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="wrap-input100 validate-input" data-validate="Kode valid: R.xxxx.{{ date('Y') }}">
+                <input value="<?= old('kode') ?>" name="kode" class="input100 text-uppercase" type="text"
+                  name="text" autocomplete="off" maxlength="11" active @if (session('danger') || session('info'))
+                autofocus
+                @endif>
+                <span class="focus-input100" data-placeholder="Kode Rapat"></span>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="wrap-input100 validate-input" data-validate="Belum diisi.">
+                <input value="<?= old('nama') ?>" name="nama" class="input100" type="text" name="nama" active
+                  @if (session('danger') || session('info'))
+                autofocus
+                @endif>
+                <span class="focus-input100" data-placeholder="Nama Lengkap"></span>
+              </div>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="nama">Nama Lengkap</label>
-            <input name="nama" type="text" class="form-control" id="nama" required
-              value="{{ old('nama') }}">
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="wrap-input100 validate-input" data-validate="Belum diisi.">
+                <input value="<?= old('nip') ?>" name="nip" class="input100" type="text" name="text"
+                  maxlength="18" active @if (session('danger') || session('info'))
+                autofocus
+                @endif>
+                <span class="focus-input100" data-placeholder="NIP"></span>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="wrap-input100 validate-input" data-validate="Belum diisi.">
+                <input value="<?= old('jabatan') ?>" name="jabatan" class="input100" type="text" name="text"
+                  maxlength="18" active @if (session('danger') || session('info'))
+                autofocus
+                @endif>
+                <span class="focus-input100" data-placeholder="Jabatan"></span>
+              </div>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="nip">NIP</label>
-            <input name="nip" type="text" class="form-control" id="nip" required
-              value="{{ old('nip') }}" minlength="18" maxlength="18">
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="wrap-input100 validate-input" data-validate="Kode valid: R.xxxx.{{ date('Y') }}">
+                <div class="form-group">
+                  <select name="keterangan" class="form-control" id="keterangan">
+                    <option value="">Keterangan</option>
+                    <option value="Hadir">Hadir</option>
+                    <option value="Tidak Hadir">Tidak Hadir</option>
+                    <option value="Sakit">Sakit</option>
+                    <option value="Perjalanan Dinas">Perjalanan Dinas</option>
+                    <option value="Diluar Kota">Diluar Kota</option>
+                  </select>
+                </div>
+                {{-- <span class="focus-input100" data-placeholder="Keterangan"></span> --}}
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="wrap-input100">
+                <input value="<?= old('keterangan_lain') ?>" name="keterangan_lain" class="input100" type="text"
+                  name="text" autocomplete="off" maxlength="11" active @if (session('danger') || session('info'))
+                autofocus
+                @endif>
+                <span class="focus-input100" data-placeholder="Keterangan Lain"></span>
+              </div>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="jabatan">jabatan</label>
-            <input name="jabatan" type="text" class="form-control" id="jabatan" required
-              value="{{ old('jabatan') }}">
-          </div>
-          {{-- <div class="form-group">
-            <label for="divisi">Jabatan</label>
-            <select name="jabatan" class="form-control" id="divisi">
-              <option value="">Pilih ...</option>
-              @foreach ($divisi as $item)
-                <option value="{{ $item->nama }}">{{ strtoupper($item->nama) }}</option>
-              @endforeach
-              <input name="jabatan_lain" type="text" class="form-control mt-2" id="jabatan_lain"
-                placeholder="Lainnya ..." value="{{ old('jabatan_lain') }}">
-              @error('jabatan_lain')
-                <div class="text-danger">{{ $message }}</div>
-              @enderror
-            </select>
+
+          {{-- <div class="wrap-input100 validate-input" data-validate="Enter password">
+            <span class="btn-show-pass">
+              <i class="zmdi zmdi-eye"></i>
+            </span>
+            <input class="input100" type="password" name="pass">
+            <span class="focus-input100" data-placeholder="Password"></span>
           </div> --}}
 
-          @php
-            $keterangan = ['Hadir', 'Tidak Hadir', 'Sakit', 'Perjalanan Dinas', 'Diluar Kota'];
-          @endphp
-          <label>Keterangan</label>
-          <div class="d-flex flex-wrap">
-            @foreach ($keterangan as $item)
-              <div class="form-check mr-3">
-                <input @if (old('keterangan') == $item) checked @endif class="form-check-input" type="radio"
-                  name="keterangan" id="{{ $item }}" value="{{ $item }}">
-                <label class="form-check-label" for="{{ $item }}">
-                  {{ $item }}
-                </label>
-              </div>
-            @endforeach
+          <div class="container-login100-form-btn">
+            <div class="wrap-login100-form-btn">
+              <div class="login100-form-bgbtn"></div>
+              <button class="login100-form-btn">
+                Absen
+              </button>
+            </div>
           </div>
 
-          <div class="form-group mt-2">
-            <input name="keterangan_lain" type="text" class="form-control" id="keterangan_lain"
-              value="{{ old('keterangan_lain') }}" placeholder="Lainnya ...">
+          <div class="text-center p-t-115">
+            <a class="txt2" href="{{ route('dashboard') }}">
+              Sistem Informasi Notulensi Rapat
+            </a>
 
-            @error('keterangan')
-              <div class="text-danger mt-1">{{ $message }}</div>
-            @enderror
-            @error('keterangan_lain')
-              <div class="text-danger mt-1">{{ $message }}</div>
-            @enderror
-          </div>
-
-          <div class="text-center">
-            <button type="submit" class="btn btn-primary">ABSEN</button>
+            <span class="txt1">
+              Perwakilan BKKBN Sulawesi Tenggara
+            </span>
           </div>
         </form>
-
-        {{-- <form action="{{ route('login.proses.absen') }}" method="post">
-          @csrf
-          <div class="input-group mb-3">
-            <input name="nip" type="text" class="form-control" placeholder="NIP" value="{{ old('nip') }}"
-              required>
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-envelope"></span>
-              </div>
-            </div>
-          </div>
-          <div class="input-group mb-3">
-            <input name="password" type="password" class="form-control" placeholder="Password" required>
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-lock"></span>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12">
-              <div class="icheck-primary">
-                <input type="checkbox" id="remember">
-                <label for="remember">
-                  Remember Me
-                </label>
-              </div>
-            </div>
-            <!-- /.col -->
-            <div class="col-12 mt-3">
-              <button type="submit" class="btn btn-primary btn-block">Login</button>
-            </div>
-            <!-- /.col -->
-          </div>
-        </form> --}}
-
-        {{-- <p class="mb-0">
-          <a href="register.html" class="text-center">Register a new membership</a>
-        </p> --}}
       </div>
-      <!-- /.card-body -->
     </div>
-    <!-- /.card -->
   </div>
-  <!-- /.login-box -->
 
-  <!-- jQuery -->
-  <script src="{{ asset('') }}plugins/jquery/jquery.min.js"></script>
-  <!-- Bootstrap 4 -->
-  <script src="{{ asset('') }}plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <!-- AdminLTE App -->
-  <script src="{{ asset('') }}dist/js/adminlte.min.js"></script>
+
+  <div id="dropDownSelect1"></div>
+
+  <!--===============================================================================================-->
+  <script src="{{ asset('login-notulen') }}/vendor/jquery/jquery-3.2.1.min.js"></script>
+  <!--===============================================================================================-->
+  <script src="{{ asset('login-notulen') }}/vendor/animsition/js/animsition.min.js"></script>
+  <!--===============================================================================================-->
+  <script src="{{ asset('login-notulen') }}/vendor/bootstrap/js/popper.js"></script>
+  <script src="{{ asset('login-notulen') }}/vendor/bootstrap/js/bootstrap.min.js"></script>
+  <!--===============================================================================================-->
+  <script src="{{ asset('login-notulen') }}/vendor/select2/select2.min.js"></script>
+  <!--===============================================================================================-->
+  <script src="{{ asset('login-notulen') }}/vendor/daterangepicker/moment.min.js"></script>
+  <script src="{{ asset('login-notulen') }}/vendor/daterangepicker/daterangepicker.js"></script>
+  <!--===============================================================================================-->
+  <script src="{{ asset('login-notulen') }}/vendor/countdowntime/countdowntime.js"></script>
+  <!--===============================================================================================-->
+  <script src="{{ asset('login-notulen') }}/js/main.js"></script>
+
 </body>
 
 </html>

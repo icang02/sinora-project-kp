@@ -157,49 +157,51 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-              <table class="table table-bordered">
-                <thead>
-                  <tr>
-                    <th style="width: 10px">#</th>
-                    <th>Jenis Rapat</th>
-                    <th>Agenda Rapat</th>
-                    <th>Pengisi Rapat</th>
-                    <th>Tanggal</th>
-                    <th>Mulai</th>
-                    <th>Selesai</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @php
-                    $rapat = \App\Models\Rapat::all();
-                  @endphp
-
-                  @foreach ($rapat as $rpt)
+              <div class="table-responsive">
+                <table class="table table-bordered">
+                  <thead>
                     <tr>
-                      <td>{{ $loop->iteration }}.</td>
-                      <td>{{ $rpt->jenis_rapat->nama }}</td>
-                      <td>{{ $rpt->nama }}</td>
-                      <td>{{ $rpt->pengisi_rapat }}</td>
-                      <td>{{ Carbon\Carbon::createFromDate($rpt->tanggal)->translatedFormat('d/m/Y') }}</td>
-                      <td>{{ $rpt->mulai }}</td>
-                      <td>{{ $rpt->selesai }}</td>
-                      <td>
-                        @if ($rpt->status == 'belum dimulai')
-                          <button
-                            class="btn badge btn-sm btn-primary font-weight-bold">{{ ucfirst($rpt->status) }}</button>
-                        @elseif ($rpt->status == 'sedang berjalan')
-                          <button
-                            class="btn badge btn-sm btn-warning font-weight-bold">{{ ucfirst($rpt->status) }}</button>
-                        @else
-                          <button
-                            class="btn badge btn-sm btn-success font-weight-bold">{{ ucfirst($rpt->status) }}</button>
-                        @endif
-                      </td>
+                      <th style="width: 10px">#</th>
+                      <th>Jenis Rapat</th>
+                      <th>Agenda Rapat</th>
+                      <th>Pengisi Rapat</th>
+                      <th>Tanggal</th>
+                      <th>Mulai</th>
+                      <th>Selesai</th>
+                      <th>Status</th>
                     </tr>
-                  @endforeach
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    @php
+                      $rapat = \App\Models\Rapat::all();
+                    @endphp
+
+                    @foreach ($rapat as $rpt)
+                      <tr>
+                        <td>{{ $loop->iteration }}.</td>
+                        <td>{{ $rpt->jenis_rapat->nama }}</td>
+                        <td>{{ $rpt->nama }}</td>
+                        <td>{{ $rpt->pengisi_rapat }}</td>
+                        <td>{{ Carbon\Carbon::createFromDate($rpt->tanggal)->translatedFormat('d/m/Y') }}</td>
+                        <td>{{ $rpt->mulai }}</td>
+                        <td>{{ $rpt->selesai }}</td>
+                        <td>
+                          @if ($rpt->status == 'belum dimulai')
+                            <button
+                              class="btn badge btn-sm btn-primary font-weight-bold">{{ ucfirst($rpt->status) }}</button>
+                          @elseif ($rpt->status == 'sedang berjalan')
+                            <button
+                              class="btn badge btn-sm btn-warning font-weight-bold">{{ ucfirst($rpt->status) }}</button>
+                          @else
+                            <button
+                              class="btn badge btn-sm btn-success font-weight-bold">{{ ucfirst($rpt->status) }}</button>
+                          @endif
+                        </td>
+                      </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+              </div>
             </div>
             <!-- /.card-body -->
             <div class="card-footer clearfix text-center">

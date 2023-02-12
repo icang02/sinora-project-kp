@@ -50,15 +50,6 @@
               </button>
             </div>
           @endif
-          {{-- @error('email')
-            <div id="alert" class="alert alert-danger alert-dismissible fade show mt-2" style="border-radius: 25px;"
-              role="alert">
-              <small>{!! session('danger') !!}</small>
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-          @enderror --}}
 
           <div class="wrap-input100 validate-input" data-validate="Email yang valid: ex@gmail.com">
             <input value="{{ old('email') }}" name="email" class="input100" type="email" name="email"
@@ -79,19 +70,29 @@
           </div>
 
           <div class="container-login100-form-btn">
-            <button type="submit" class="login100-form-btn">
+            <button type="submit" class="login100-form-btn" style="cursor: pointer;">
               Login
             </button>
           </div>
 
-          {{-- <div class="text-center p-t-12">
+          <div class="text-center p-t-10">
             <span class="txt1">
-              Forgot
+              Login sebagai
             </span>
-            <a class="txt2" href="#">
-              Username / Password?
+            <a class="txt2" href="{{ route('notulen') }}">
+              notulen?
             </a>
-          </div> --}}
+            <span class="txt1">
+              Atau ke halaman
+            </span>
+            <a class="txt2" href="{{ route('absen') }}">
+              absensi
+            </a>
+            <span class="txt1">
+              rapat.
+            </span>
+          </div>
+
 
           <div class="text-center p-t-136">
             <button class="txt2">

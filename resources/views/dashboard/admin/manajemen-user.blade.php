@@ -83,138 +83,140 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-              <table id="tabel-data" class="table table-sm table-bordered table-hover">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Nama</th>
-                    <th>Email</th>
-                    <th>Level</th>
-                    <th>Register</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @foreach ($users as $user)
+              <div class="table-responsive">
+                <table id="tabel-data" class="table table-sm table-bordered table-hover">
+                  <thead>
                     <tr>
-                      <td>{{ $loop->iteration }}.</td>
-                      <td>{{ $user->name }}</td>
-                      <td>{{ $user->email }}</td>
-                      <td>{{ $user->level }}</td>
-                      <td>{{ $user->created_at }}</td>
-                      <td>
-                        @if ($user->status == 'aktif')
-                          <button class="btn btn-success btn-sm badge">{{ ucwords($user->status) }}</button>
-                        @else
-                          <button class="btn btn-warning btn-sm badge">{{ ucwords($user->status) }}</button>
-                        @endif
-                      </td>
-                      <td>
-                        @if ($user->email == auth()->user()->email)
-                          <a href="{{ route('profil') }}" class="btn btn-info btn-sm">Profil</a>
-                        @else
-                          <button class="btn btn-info btn-sm" data-toggle="modal"
-                            data-target="#modalEdit{{ $user->id }}">Edit</button>
-                        @endif
-                        @if ($user->email == auth()->user()->email)
-                          <div class="btn btn-danger btn-sm disabled">Hapus</div>
-                        @else
-                          <form action="{{ route('delete.user', $user->id) }}" method="post" class="d-inline">
-                            @method('delete')
-                            @csrf
-                            <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
-                          </form>
-                        @endif
-                      </td>
+                      <th>#</th>
+                      <th>Nama</th>
+                      <th>Email</th>
+                      <th>Level</th>
+                      <th>Register</th>
+                      <th>Status</th>
+                      <th>Action</th>
                     </tr>
-
-                    <div class="modal fade" id="modalEdit{{ $user->id }}" tabindex="-1" role="dialog"
-                      aria-labelledby="exampleModalLabel" aria-hidden="true">
-                      <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Edit User</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-
-                          <form action="{{ route('update.user', $user->id) }}" method="post">
-                            <div class="modal-body">
+                  </thead>
+                  <tbody>
+                    @foreach ($users as $user)
+                      <tr>
+                        <td>{{ $loop->iteration }}.</td>
+                        <td>{{ $user->name }}</td>
+                        <td>{{ $user->email }}</td>
+                        <td>{{ $user->level }}</td>
+                        <td>{{ $user->created_at }}</td>
+                        <td>
+                          @if ($user->status == 'aktif')
+                            <button class="btn btn-success btn-sm badge">{{ ucwords($user->status) }}</button>
+                          @else
+                            <button class="btn btn-warning btn-sm badge">{{ ucwords($user->status) }}</button>
+                          @endif
+                        </td>
+                        <td>
+                          @if ($user->email == auth()->user()->email)
+                            <a href="{{ route('profil') }}" class="btn btn-info btn-sm">Profil</a>
+                          @else
+                            <button class="btn btn-info btn-sm" data-toggle="modal"
+                              data-target="#modalEdit{{ $user->id }}">Edit</button>
+                          @endif
+                          @if ($user->email == auth()->user()->email)
+                            <div class="btn btn-danger btn-sm disabled">Hapus</div>
+                          @else
+                            <form action="{{ route('delete.user', $user->id) }}" method="post" class="d-inline">
+                              @method('delete')
                               @csrf
-                              @method('put')
-                              <div class="form-group">
-                                <label for="name">Nama Lengkap</label>
-                                <input name="name" type="text" class="form-control" id="name"
-                                  placeholder="Enter name" required value="{{ old('name', $user->name) }}">
-                              </div>
-                              <div class="form-group">
-                                <label for="email">Email</label>
-                                <input name="email" type="email" class="form-control" id="email"
-                                  placeholder="Enter email" required value="{{ old('email', $user->email) }}">
-                              </div>
-                              <div class="form-group">
-                                <label for="level">Level User</label>
-                                <select name="level" class="form-control" id="level" required>
-                                  <option value="">Pilih ...</option>
-                                  <option value="Administrator" @if (old('level', $user->level) == 'Administrator') selected @endif>
-                                    ADMINISTRATOR
-                                  </option>
-                                  <option value="Pegawai" @if (old('level', $user->level) == 'Pegawai') selected @endif>PEGAWAI
-                                  </option>
-                                </select>
-                              </div>
-                              <div class="form-group">
-                                <label for="status">Status</label>
-                                <select name="status" class="form-control" id="status" required>
-                                  <option value="">Pilih ...</option>
-                                  <option value="aktif" @if (old('status', $user->status) == 'aktif') selected @endif>
-                                    Aktif
-                                  </option>
-                                  <option value="tidak aktif" @if (old('status', $user->status) == 'tidak aktif') selected @endif>Tidak
-                                    Aktif
-                                  </option>
-                                </select>
-                              </div>
-                              <div class="form-group">
-                                <label for="password">Password</label> <br>
-                                <div onclick="location.href='{{ route('reset', $user->id) }}';"
-                                  class="btn btn-danger mb-2">Reset Password</div>
-                                <div class="text-form text-muted">Password user akan direset menjadi "user123".</div>
-                              </div>
+                              <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+                            </form>
+                          @endif
+                        </td>
+                      </tr>
 
-                              {{-- <div class="form-group">
-                                <label for="password">Password</label>
-                                <input name="password" type="password" class="form-control" id="password"
-                                  autocomplete="off" placeholder="******">
+                      <div class="modal fade" id="modalEdit{{ $user->id }}" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Edit User</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+
+                            <form action="{{ route('update.user', $user->id) }}" method="post">
+                              <div class="modal-body">
+                                @csrf
+                                @method('put')
+                                <div class="form-group">
+                                  <label for="name">Nama Lengkap</label>
+                                  <input name="name" type="text" class="form-control" id="name"
+                                    placeholder="Enter name" required value="{{ old('name', $user->name) }}">
+                                </div>
+                                <div class="form-group">
+                                  <label for="email">Email</label>
+                                  <input name="email" type="email" class="form-control" id="email"
+                                    placeholder="Enter email" required value="{{ old('email', $user->email) }}">
+                                </div>
+                                <div class="form-group">
+                                  <label for="level">Level User</label>
+                                  <select name="level" class="form-control" id="level" required>
+                                    <option value="">Pilih ...</option>
+                                    <option value="Administrator" @if (old('level', $user->level) == 'Administrator') selected @endif>
+                                      ADMINISTRATOR
+                                    </option>
+                                    <option value="Pegawai" @if (old('level', $user->level) == 'Pegawai') selected @endif>PEGAWAI
+                                    </option>
+                                  </select>
+                                </div>
+                                <div class="form-group">
+                                  <label for="status">Status</label>
+                                  <select name="status" class="form-control" id="status" required>
+                                    <option value="">Pilih ...</option>
+                                    <option value="aktif" @if (old('status', $user->status) == 'aktif') selected @endif>
+                                      Aktif
+                                    </option>
+                                    <option value="tidak aktif" @if (old('status', $user->status) == 'tidak aktif') selected @endif>Tidak
+                                      Aktif
+                                    </option>
+                                  </select>
+                                </div>
+                                <div class="form-group">
+                                  <label for="password">Password</label> <br>
+                                  <div onclick="location.href='{{ route('reset', $user->id) }}';"
+                                    class="btn btn-danger mb-2">Reset Password</div>
+                                  <div class="text-form text-muted">Password user akan direset menjadi "user123".</div>
+                                </div>
+
+                                {{-- <div class="form-group">
+                                  <label for="password">Password</label>
+                                  <input name="password" type="password" class="form-control" id="password"
+                                    autocomplete="off" placeholder="******">
+                                </div>
+                                <div class="form-group">
+                                  <label for="password">Konfirmasi Password</label>
+                                  <input name="password_confirmation" type="password" class="form-control"
+                                    id="password" autocomplete="off" placeholder="******">
+                                </div> --}}
                               </div>
-                              <div class="form-group">
-                                <label for="password">Konfirmasi Password</label>
-                                <input name="password_confirmation" type="password" class="form-control"
-                                  id="password" autocomplete="off" placeholder="******">
-                              </div> --}}
-                            </div>
-                            <div class="modal-footer">
-                              <button type="submit" class="btn btn-primary">Update Data</button>
-                              <button class="btn btn-secondary" data-dismiss="modal">Kembali</button>
-                            </div>
-                          </form>
+                              <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Update Data</button>
+                                <button class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+                              </div>
+                            </form>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  @endforeach
-                </tbody>
-                {{-- <tfoot>
-                  <tr>
-                    <th>Rendering engine</th>
-                    <th>Browser</th>
-                    <th>Platform(s)</th>
-                    <th>Engine version</th>
-                    <th>CSS grade</th>
-                  </tr>
-                </tfoot> --}}
-              </table>
+                    @endforeach
+                  </tbody>
+                  {{-- <tfoot>
+                    <tr>
+                      <th>Rendering engine</th>
+                      <th>Browser</th>
+                      <th>Platform(s)</th>
+                      <th>Engine version</th>
+                      <th>CSS grade</th>
+                    </tr>
+                  </tfoot> --}}
+                </table>
+              </div>
             </div>
             <!-- /.card-body -->
           </div>

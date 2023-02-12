@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\FileAbsen;
 use App\Models\JenisRapat;
 use App\Models\Notulen;
 use App\Models\Peserta;
 use App\Models\Rapat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class RapatController extends Controller
@@ -71,9 +73,28 @@ class RapatController extends Controller
         return redirect()->route('rapat')->with('success', 'Rapat berhasil dibuat.');
     }
 
+    public function deleteRapat(Rapat $rapat)
+    {
+        if ($rapat->peserta->count() != 0) {
+            Peserta::where('rapat_id', $rapat->id)->delete();
+        }
+        if ($rapat->dokumentasi->count() != 0) {
+            foreach ($rapat->dokumentasi as $item) {
+                Storage::delete($item->foto);
+                $item->delete();
+            }
+        }
+        if ($rapat->file_absen != null) {
+            FileAbsen::where('rapat_id', $rapat->id)->delete();
+            Storage::delete($rapat->file_absen->file);
+        }
+
+        $rapat->delete();
+        return back()->with('success', 'Data rapat berhasil dihapus.');
+    }
+
     public function detailRapat(Rapat $rapat)
     {
-
         return view('dashboard.admin.detail-rapat', [
             'title' => 'Detail Rapat',
             'rapat' => $rapat,

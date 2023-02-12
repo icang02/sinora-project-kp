@@ -26,10 +26,10 @@
   <ul class="navbar-nav ml-auto">
     <!-- Navbar Search -->
     <li class="nav-item">
-      <a class="nav-link" data-widget="navbar-search" href="#" role="button">
+      {{-- <a class="nav-link" data-widget="navbar-search" href="#" role="button">
         <i class="fas fa-search"></i>
-      </a>
-      <div class="navbar-search-block">
+      </a> --}}
+      {{-- <div class="navbar-search-block">
         <form class="form-inline">
           <div class="input-group input-group-sm">
             <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
@@ -43,7 +43,7 @@
             </div>
           </div>
         </form>
-      </div>
+      </div> --}}
     </li>
 
     <li class="nav-item">

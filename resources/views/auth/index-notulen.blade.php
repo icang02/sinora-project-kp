@@ -83,6 +83,12 @@
           @if (session('success'))
             <button id="modal" type="button" style="display: none;"
               class="btn btn-success toastrDefaultSuccess"></button>
+          @elseif(session('danger'))
+            <button id="modal" type="button" style="display: none;"
+              class="btn btn-success toastrDefaultError"></button>
+          @elseif(session('successPassword'))
+            <button id="modal" type="button" style="display: none;"
+              class="btn btn-success toastrDefaultSuccessPassword"></button>
           @endif
 
           {{-- @if (session('success'))
@@ -131,8 +137,8 @@
                         <h6>Pengisi Rapat</h6>
                       </div>
                       <div class="col-md-9 mb-2">
-                        <input name="pengisi_rapat" type="text" class="form-control form-control-sm font-weight-bold"
-                          value="{{ $rapat->pengisi_rapat }}">
+                        <input name="pengisi_rapat" type="text"
+                          class="form-control form-control-sm font-weight-bold" value="{{ $rapat->pengisi_rapat }}">
                       </div>
                       <div class="col-md-3">
                         <h6>Peserta Rapat</h6>
@@ -219,10 +225,11 @@
             </div>
 
             <div class="card-footer text-center">
-              <p>Akhiri rapat dengan menekan tombol dibawah.</p>
+              <p>Tekan tombol dibawah untuk mengakhiri rapat.</p>
               <form action="{{ route('akhiri.rapat') }}" method="POST">
                 @csrf
                 <input readonly type="hidden" name="rapat_id" value="{{ $notulen->rapat_id }}">
+                <input readonly type="hidden" name="notulen_id" value="{{ $notulen->id }}">
                 <button class="btn btn-danger d-block mb-3 mx-auto">Akhiri Rapat</button>
               </form>
               Copyright &copy; {{ date('Y') }} <a href="{{ route('notulen') }}">Notulensi BKKBN
@@ -316,6 +323,21 @@
     $(function() {
       $('.toastrDefaultSuccess').click(function() {
         toastr.success("{{ session('success') }}")
+      });
+      $('.toastrDefaultSuccessPassword').click(function() {
+        toastr.success("{{ session('successPassword') }}")
+      });
+      $('.toastrDefaultInfo').click(function() {
+        toastr.info("{{ session('info') }}")
+      });
+      $('.toastrDefaultError').click(function() {
+        toastr.error("{{ session('danger') }}")
+      });
+      $('.toastrDefaultErrorr').click(function() {
+        toastr.error('Konfirmasi password salah.')
+      });
+      $('.toastrDefaultWarning').click(function() {
+        toastr.warning('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
       });
     });
   </script>

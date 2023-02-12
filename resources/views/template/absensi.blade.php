@@ -34,7 +34,7 @@
     <hr style="height: 2px;">
 
     <div style="margin-top: 15px;">
-      <div style="font-weight: bold; text-align: center; margin-bottom: 20px;">DAFTAR HADIR PERTEMUAN RAPAT
+      <div style="font-weight: bold; text-align: center; margin-bottom: 20px;">DAFTAR PRESENSI RAPAT
       </div>
 
       <table width="100%" cellpadding="0" cellspacing="0" style="line-height:23px;">

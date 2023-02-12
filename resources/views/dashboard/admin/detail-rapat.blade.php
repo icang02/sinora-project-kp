@@ -167,7 +167,7 @@
                 </div>
                 <div class="col-md-6 col-12 d-md-flex justify-content-end">
                   <h5 class="card-title">
-                    <table>
+                    <table class="mt-3 mt-md-0">
                       <tr>
                         <td>
                           <h5 class="card-title">Kode Rapat</h5>
@@ -295,7 +295,8 @@
                     <a href="{{ route('download.notulen', $rapat->notulen->id) }}"
                       class="btn btn-secondary btn-sm">Unduh</a>
                     @can('pegawai')
-                      <a href="{{ route('dokumentasi', $rapat->slug) }}" class="btn btn-secondary btn-sm">Dokumentasi
+                      <a href="{{ route('dokumentasi', $rapat->slug) }}"
+                        class="btn btn-secondary btn-sm mt-1 mt-md-0">Dokumentasi
                         Rapat</a>
                     @endcan
                   </div>
@@ -353,7 +354,8 @@
                               <form action="{{ route('delete.peserta', $item->id) }}" method="post">
                                 @csrf
                                 @method('delete')
-                                <button type="submit" class="btn btn-danger btn-sm badge">Hapus Peserta</button>
+                                <button onclick="return confirm('Hapus peserta rapat?')" type="submit"
+                                  class="btn btn-danger btn-sm badge">Hapus Peserta</button>
                               </form>
                             </td>
                           @endcan
@@ -381,12 +383,6 @@
       var copyText = document.getElementById("text-copy");
       copyText.select();
       document.execCommand("copy");
-    }
-
-    // HAPUS ELEMENT BAWAAN PRINT
-    window.onload = function() {
-      const element = document.querySelector('.dt-buttons');
-      element.parentNode.removeChild(element);
     }
   </script>
 

@@ -23,6 +23,7 @@ class AuthAbsenController extends Controller
 
     public function processAbsen(Request $request)
     {
+        // dd($request->all());
         $rapat = Rapat::where('kode', $request->kode)->get()->first();
 
         if ($rapat != null) {
@@ -56,6 +57,10 @@ class AuthAbsenController extends Controller
 
                 $rapatId = $rapat->id;
                 $keterangan = $request->keterangan;
+                if ($keterangan == null && $request->keterangan_lain == null) {
+                    return back()->with('danger', 'Keterangan belum diisi.')->withInput();
+                }
+                if ($keterangan == null) $keterangan = $request->keterangan_lain;
                 if ($request->keterangan_lain != null) {
                     $keterangan = Str::title($request->keterangan_lain);
                 }
@@ -63,7 +68,7 @@ class AuthAbsenController extends Controller
                     'rapat_id' => $rapatId,
                     'nama' => ucfirst($request->nama),
                     'nip' => $request->nip,
-                    'jabatan' => strtoupper($jabatan),
+                    'jabatan' => ucfirst($jabatan),
                     'keterangan' => $keterangan,
                 ]);
 

@@ -1,9 +1,10 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Brand Logo -->
-  <a href="index3.html" class="brand-link">
-    <img src="{{ asset('') }}dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-      style="opacity: .8">
-    <span class="brand-text font-weight-light">NOTULENSI</span>
+  <a href="{{ route('dashboard') }}" class="brand-link">
+    <img src="{{ asset('') }}img/favicon.ico" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+      style="opacity: .8; margin-top: 4px;">
+    <span class="brand-text font-weight-light">SINORA BKKBN</span>
+    <div style="font-size: 0.8rem; margin-left: 54px; margin-top: -6px; letter-spacing: 1.5px;">Sulawesi Tenggara</div>
   </a>
 
   <div class="sidebar">
@@ -43,7 +44,7 @@
 
         <li class="nav-item @if (request()->is('profil')) menu-open @endif">
           <a href="{{ route('profil') }}" class="nav-link">
-            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <i class="nav-icon fas fa-th"></i>
             <p>
               Profil
             </p>
@@ -53,7 +54,7 @@
         @can('admin')
           <li class="nav-item @if (request()->is('manajemen-user')) menu-open @endif">
             <a href="{{ route('manajemen.user') }}" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="nav-icon fas fa-columns"></i>
               <p>
                 Manajemen User
               </p>
@@ -127,7 +128,7 @@
 
         <li class="nav-item">
           <a href="{{ route('logout') }}" class="nav-link">
-            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <i class="nav-icon far fa-plus-square"></i>
             <p>
               Logout
             </p>

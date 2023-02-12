@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\JenisRapat;
+use App\Models\Rapat;
 use Illuminate\Http\Request;
 
 class JenisRapatController extends Controller
@@ -28,6 +29,10 @@ class JenisRapatController extends Controller
     public function deleteJenisRapat($id)
     {
         $jenisRapat = JenisRapat::findOrFail($id);
+        if (Rapat::where('jenis_rapat_id', $jenisRapat->id)->get()->first()->count() != 0) {
+            return back()->with('danger', "Gagal menghapus. Jenis rapat ini masih digunakan pada data rapat.");
+        }
+
         $nama = $jenisRapat->nama;
 
         $jenisRapat->delete();

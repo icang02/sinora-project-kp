@@ -36,7 +36,6 @@
             </div>
           </div>
 
-
           @if (session('success'))
             <div id="alert" class="alert alert-success alert-dismissible fade show mt-2" role="alert">
               {!! session('success') !!}
@@ -48,6 +47,14 @@
           @if (session('info'))
             <div id="alert" class="alert alert-info alert-dismissible fade show mt-2" role="alert">
               {!! session('info') !!}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          @endif
+          @if (session('danger'))
+            <div id="alert" class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
+              {!! session('danger') !!}
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -88,7 +95,8 @@
                           <form action="{{ route('delete.jenis.rapat', $rpt->id) }}" method="post" class="d-inline">
                             @csrf
                             @method('delete')
-                            <button class="btn btn-danger btn-sm">Hapus</button>
+                            <button onclick="return confirm('Lanjutkan untuk menghapus?')"
+                              class="btn btn-danger btn-sm">Hapus</button>
                           </form>
                         </td>
                       </tr>

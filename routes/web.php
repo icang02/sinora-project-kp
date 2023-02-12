@@ -10,6 +10,7 @@ use App\Http\Controllers\PesertaController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\RapatController;
 use App\Models\Notulen;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,6 +23,10 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/seed', function () {
+    return Artisan::call('migrate:fresh --seed');
+});
 
 Route::get('/', function () {
     return view('dashboard.admin.index', [
@@ -49,7 +54,7 @@ Route::get('/data-rapat/{rapat:status?}', [RapatController::class, 'index'])->na
 Route::get('/rapat/{rapat:slug}', [RapatController::class, 'detailRapat'])->name('detail.rapat')->middleware('auth');
 Route::post('/add-rapat', [RapatController::class, 'addRapat'])->name('add.rapat');
 Route::put('/update-rapat/{rapat:slug}', [RapatController::class, 'updateRapat'])->name('update.rapat');
-
+Route::delete('/delete-rapat/{rapat:slug}', [RapatController::class, 'deleteRapat'])->name('delete.rapat');
 // BATAS RAPAT
 
 Route::post('/add-peserta', [PesertaController::class, 'addPeserta'])->name('add.peserta');
