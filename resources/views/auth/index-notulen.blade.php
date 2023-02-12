@@ -91,27 +91,12 @@
               class="btn btn-success toastrDefaultSuccessPassword"></button>
           @endif
 
-          {{-- @if (session('success'))
-            <div class="alert alert-success alert-dismissible fade show" id="alert" role="alert">
-              {{ session('success') }}
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-          @endif
-          <script>
-            setTimeout(function() {
-              $('#alert').fadeOut('fast');
-            }, 1500);
-          </script> --}}
-
           <div class="card card-outline card-info">
             <div class="card-header">
               <h3 class="card-title font-weight-bold">
                 {{ $rapat->jenis_rapat->nama }}
               </h3>
             </div>
-            <!-- /.card-header -->
 
             <div class="card-body">
               <form action="{{ route('save.notulen', $rapat->id) }}" method="POST">
@@ -184,7 +169,8 @@
                         <h6>Notulis</h6>
                       </div>
                       <div class="col-md-8 mb-2">
-                        <input name="notulis" type="text" class="form-control form-control-sm font-weight-bold"
+                        <input id="notulis" name="notulis" type="text"
+                          class="form-control form-control-sm font-weight-bold"
                           value="{{ $rapat->notulen->notulis }}">
                       </div>
                       <div class="col-md-4">
@@ -225,13 +211,19 @@
             </div>
 
             <div class="card-footer text-center">
-              <p>Tekan tombol dibawah untuk mengakhiri rapat.</p>
+              <p>Tekan tombol "Simpan" sebelum mengakhiri rapat.</p>
               <form action="{{ route('akhiri.rapat') }}" method="POST">
                 @csrf
-                <input readonly type="hidden" name="rapat_id" value="{{ $notulen->rapat_id }}">
-                <input readonly type="hidden" name="notulen_id" value="{{ $notulen->id }}">
-                <button class="btn btn-danger d-block mb-3 mx-auto">Akhiri Rapat</button>
+                <input type="hidden" name="rapat_id" value="{{ $notulen->rapat_id }}">
+                <input type="hidden" name="notulen_id" value="{{ $notulen->id }}">
+
+                @if (is_null($notulen->pembahasan))
+                  <button disabled type="button" class="btn btn-danger d-block mb-3 mx-auto">Akhiri Rapat</button>
+                @else
+                  <button type="submit" class="btn btn-danger d-block mb-3 mx-auto">Akhiri Rapat</button>
+                @endif
               </form>
+
               Copyright &copy; {{ date('Y') }} <a href="{{ route('notulen') }}">Notulensi BKKBN
                 Sultra</a>.
               All rights reserved.

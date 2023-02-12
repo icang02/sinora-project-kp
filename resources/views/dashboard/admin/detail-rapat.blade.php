@@ -335,7 +335,7 @@
                       Daftar Hadir</button>
                   </div>
                 @else
-                  <a href="{{ route('print.absen', $rapat->id) }}" class="btn btn-secondary btn-sm badge">Print
+                  <a href="{{ route('print.absen', $rapat->id) }}" class="btn btn-secondary btn-sm badge">Unduh
                     Daftar Hadir</a>
                 @endcan
 
