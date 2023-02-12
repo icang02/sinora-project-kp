@@ -17,7 +17,7 @@ class CreatePesertaTable extends Migration
             $table->id();
             $table->foreignId('rapat_id');
             $table->string('nama');
-            $table->string('nip');
+            $table->string('nip')->nullable()->unique();
             $table->string('jabatan');
             $table->string('keterangan');
             $table->timestamps();

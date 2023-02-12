@@ -89,6 +89,7 @@ class RapatController extends Controller
             Storage::delete($rapat->file_absen->file);
         }
 
+        Notulen::where('rapat_id', $rapat->id)->delete();
         $rapat->delete();
         return back()->with('success', 'Data rapat berhasil dihapus.');
     }

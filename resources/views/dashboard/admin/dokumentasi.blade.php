@@ -78,18 +78,22 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-              <button data-toggle="modal" data-target="#modalTambah" class="btn btn-primary btn-sm">Unggah Foto</button>
+              @can('pegawai')
+                <button data-toggle="modal" data-target="#modalTambah" class="btn btn-primary btn-sm">Unggah Foto</button>
+              @endcan
 
               <div class="mt-4">
                 @if ($rapat->dokumentasi->count() != 0)
                   <div class="row">
                     @foreach ($rapat->dokumentasi as $index => $item)
                       <div class="col-sm-2 text-center">
-                        <form action="{{ route('delete.dokumentasi', $item->id) }}" method="post">
-                          @csrf
-                          @method('delete')
-                          <button type="submit" class="btn btn-danger btn-sm badge mb-2">Hapus</button>
-                        </form>
+                        @can('pegawai')
+                          <form action="{{ route('delete.dokumentasi', $item->id) }}" method="post">
+                            @csrf
+                            @method('delete')
+                            <button type="submit" class="btn btn-danger btn-sm badge mb-2">Hapus</button>
+                          </form>
+                        @endcan
 
                         <a href="{{ asset("storage/$item->foto") }}?img={{ $index + 1 }}" data-toggle="lightbox"
                           data-title="{{ 'Gambar ' . $index + 1 }}" data-gallery="gallery">

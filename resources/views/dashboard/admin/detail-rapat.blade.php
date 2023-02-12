@@ -49,36 +49,34 @@
                       <label>Keterangan</label>
                       <div class="d-flex flex-wrap">
                         <div class="form-check mr-3">
-                          <input class="form-check-input" type="radio" name="keterangan" id="hadir" value="Hadir"
-                            required>
+                          <input class="form-check-input" type="radio" name="keterangan" id="hadir" value="Hadir">
                           <label class="form-check-label" for="hadir">
                             Hadir
                           </label>
                         </div>
                         <div class="form-check mr-3">
                           <input class="form-check-input" type="radio" name="keterangan" id="tidak_hadir"
-                            value="Tidak Hadir" required>
+                            value="Tidak Hadir">
                           <label class="form-check-label" for="tidak_hadir">
                             Tidak Hadir
                           </label>
                         </div>
                         <div class="form-check mr-3">
-                          <input class="form-check-input" type="radio" name="keterangan" id="sakit" value="Sakit"
-                            required>
+                          <input class="form-check-input" type="radio" name="keterangan" id="sakit" value="Sakit">
                           <label class="form-check-label" for="sakit">
                             Sakit
                           </label>
                         </div>
                         <div class="form-check mr-3">
                           <input class="form-check-input" type="radio" name="keterangan" id="perjalanan_dinas"
-                            value="Perjalanan Dinas" required>
+                            value="Perjalanan Dinas">
                           <label class="form-check-label" for="perjalanan_dinas">
                             Perjalanan Dinas
                           </label>
                         </div>
                         <div class="form-check mr-3">
                           <input class="form-check-input" type="radio" name="keterangan" id="diluar_kota"
-                            value="Diluar Kota" required>
+                            value="Diluar Kota">
                           <label class="form-check-label" for="diluar_kota">
                             Diluar Kota
                           </label>
@@ -144,6 +142,11 @@
             <button id="modal" type="button" style="display: none;"
               class="btn btn-success toastrDefaultSuccess"></button>
           @endif
+          @if (session('danger'))
+            <button id="modal" type="button" style="display: none;"
+              class="btn btn-success toastrDefaultError"></button>
+          @endif
+
 
           @push('script')
             <script>
@@ -154,6 +157,21 @@
               $(function() {
                 $('.toastrDefaultSuccess').click(function() {
                   toastr.success("{{ session('success') }}")
+                });
+                $('.toastrDefaultSuccessPassword').click(function() {
+                  toastr.success("{{ session('successPassword') }}")
+                });
+                $('.toastrDefaultInfo').click(function() {
+                  toastr.info("{{ session('info') }}")
+                });
+                $('.toastrDefaultError').click(function() {
+                  toastr.error("{{ session('danger') }}")
+                });
+                $('.toastrDefaultErrorr').click(function() {
+                  toastr.error('Konfirmasi password salah.')
+                });
+                $('.toastrDefaultWarning').click(function() {
+                  toastr.warning('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
                 });
               });
             </script>
@@ -288,17 +306,16 @@
                   <h6 class="font-weight-bold card-title">Action</h6> <br>
                   <div class="mt-2">
                     @can('pegawai')
-                      <a href="{{ route('edit.notulen', $rapat->id) }}" class="btn btn-secondary btn-sm">Edit Notulen</a>
+                      <a href="{{ route('edit.notulen', $rapat->id) }}" class="btn btn-secondary btn-sm">Edit
+                        Notulen</a>
                     @endcan
-                    <a href="{{ route('lihat.notulen', $rapat->notulen->id) }}" target="_blank"
-                      class="btn btn-secondary btn-sm">Print Notulen</a>
+                    {{-- <a href="{{ route('lihat.notulen', $rapat->notulen->id) }}" target="_blank"
+                      class="btn btn-secondary btn-sm">Print Notulen</a> --}}
                     <a href="{{ route('download.notulen', $rapat->notulen->id) }}"
-                      class="btn btn-secondary btn-sm">Unduh</a>
-                    @can('pegawai')
-                      <a href="{{ route('dokumentasi', $rapat->slug) }}"
-                        class="btn btn-secondary btn-sm mt-1 mt-md-0">Dokumentasi
-                        Rapat</a>
-                    @endcan
+                      class="btn btn-secondary btn-sm">Unduh Notulen</a>
+                    <a href="{{ route('dokumentasi', $rapat->slug) }}"
+                      class="btn btn-secondary btn-sm mt-1 mt-md-0">Dokumentasi
+                      Rapat</a>
                   </div>
                 </div>
 
@@ -312,15 +329,13 @@
                   <div class="mt-2 mt-md-0">
                     <button class="btn btn-info btn-sm badge" data-toggle="modal" data-target="#modalTambah">Tambah
                       Peserta</button>
-                    <a href="{{ route('print.absen', $rapat->id) }}" target="_blank"
-                      class="btn btn-secondary btn-sm badge">Print
+                    <a href="{{ route('print.absen', $rapat->id) }}" class="btn btn-secondary btn-sm badge">Unduh
                       Daftar Hadir</a>
                     <button class="btn btn-secondary btn-sm badge" data-toggle="modal" data-target="#modalAbsen">File
                       Daftar Hadir</button>
                   </div>
                 @else
-                  <a href="{{ route('print.absen', $rapat->id) }}" target="_blank"
-                    class="btn btn-secondary btn-sm badge">Print
+                  <a href="{{ route('print.absen', $rapat->id) }}" class="btn btn-secondary btn-sm badge">Print
                     Daftar Hadir</a>
                 @endcan
 

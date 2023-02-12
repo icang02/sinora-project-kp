@@ -62,13 +62,13 @@
           <td>Pengisi Rapat</td>
           <td>:&nbsp; {{ $notulen->rapat->pengisi_rapat }}</td>
         </tr>
-        <tr>
+        {{-- <tr>
           <td>Peserta Rapat</td>
           <td>:&nbsp; {{ $jumlahPeserta . ' orang' ?? '-' }}</td>
-        </tr>
+        </tr> --}}
         <tr>
           <td>Notulis</td>
-          <td>:&nbsp; {{ $notulen->notulis }}</td>
+          <td>:&nbsp; {{ $notulen->notulis ?? '-' }}</td>
         </tr>
       </table>
     </div>
@@ -81,8 +81,9 @@
       <tr>
         <td width="50%"></td>
         <td>
-          <div>Pembuat Notulen, </div><br><br><br>
-          <div>{{ $notulen->notulis }} / {{ $notulen->jabatan }}</div>
+          <div>Pembuat Notulen, </div>
+          <div>{{ $notulen->jabatan }} / {{ $notulen->pangkat }}</div><br><br><br>
+          <div>{{ $notulen->notulis }}</div>
           {{-- <div>{{ $notulen->jabatan }}</div> --}}
           <div>NIP : {{ $notulen->nip }}</div>
         </td>

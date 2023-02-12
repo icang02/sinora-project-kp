@@ -7,10 +7,10 @@
       @can('admin')
         @php
           $totalRapat = App\Models\Rapat::all()->count();
-          $userAktif = App\Models\User::where('level', 'Administrator')
+          $userAktif = App\Models\User::where('status', 'aktif')
               ->get()
               ->count();
-          $userTidakAktif = App\Models\User::where('level', 'Pegawai')
+          $userTidakAktif = App\Models\User::where('status', 'tidak aktif')
               ->get()
               ->count();
         @endphp

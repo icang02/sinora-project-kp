@@ -4,12 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\Peserta;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 class PesertaController extends Controller
 {
     public function addPeserta(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'nip' => 'required|unique:peserta'
+        ]);
+        if ($validator->fails()) {
+            return back()->with('danger', 'Peserta rapat sudah ada.');
+        }
+
         $keterangan = $request->keterangan;
         if ($request->keterangan_lain != null) {
             $keterangan = Str::title($request->keterangan_lain);

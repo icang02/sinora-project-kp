@@ -72,7 +72,7 @@ class AuthAbsenController extends Controller
                     'keterangan' => $keterangan,
                 ]);
 
-                return back()->with('success', "Selamat Anda sudah melakukan presensi pada agenda \"$rapat->nama\".");
+                return back()->with('success', "Selamat Anda sudah berhasil melakukan presensi pada \"$rapat->nama\".");
             }
 
             return back()->with('info', "Belum dapat melakukan presensi. Rapat dimulai pukul \"<b>$rapat->mulai - $rapat->selesai WITA</b>\".")->withInput();
@@ -130,6 +130,6 @@ class AuthAbsenController extends Controller
 
         $pdf = PDF::loadView('template.absensi', $data, [], []);
 
-        return $pdf->stream('absensi-' . $rapat->slug . '.pdf');
+        return $pdf->download('absensi-' . $rapat->slug . '.pdf');
     }
 }
