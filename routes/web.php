@@ -24,9 +24,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/seed', function () {
-    return Artisan::call('migrate:fresh --seed');
-});
+// Route::get('/seed', function () {
+//     return Artisan::call('migrate:fresh --seed');
+// });
 
 Route::get('/', function () {
     return view('dashboard.admin.index', [

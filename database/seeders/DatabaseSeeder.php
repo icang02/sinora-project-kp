@@ -18,8 +18,6 @@ class DatabaseSeeder extends Seeder
             JenisRapatSeeder::class,
             RapatSeeder::class,
             PesertaSeeder::class,
-            PegawaiSeeder::class,
-            DivisiSeeder::class,
         ]);
     }
 }

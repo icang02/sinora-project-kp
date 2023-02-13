@@ -26,12 +26,12 @@ class RapatSeeder extends Seeder
 
         $rapatId = DB::table('rapat')->insertGetId(
             [
-                'jenis_rapat_id' => 3,
+                'jenis_rapat_id' => 4,
                 'kode' => 'R.' . str_pad($rapatId, 4, '0', STR_PAD_LEFT) . '.' . date('Y'),
-                'nama' => 'Rapat Penyuluhan KB',
-                'slug' => Str::slug('Rapat Penyuluhan KB'),
-                'ruang' => 'Aula Kantor BKKBN',
-                'pengisi_rapat' => 'Kabid, Kepala, Sekretaris',
+                'nama' => 'Rapat Pengendalian Keuangan',
+                'slug' => Str::slug('Rapat Pengendalian Keuangan'),
+                'ruang' => 'Ruang Pola',
+                'pengisi_rapat' => 'Pejabat Tinggi Pratama, Koordinator dan Sub Koordinator',
                 'pimpinan_rapat' => 'Agus Salim, S.E., M.E.',
                 'nip_pimpinan' => '200203052025020102',
                 'tanggal' => '2023-01-30',

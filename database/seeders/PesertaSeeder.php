@@ -18,21 +18,21 @@ class PesertaSeeder extends Seeder
             'rapat_id' => 1,
             'nama' => 'Budiyantoso',
             'jabatan' => 'Sekretaris',
-            'nip' => '123456789',
+            'nip' => '198802040311221312',
             'keterangan' => 'Hadir',
         ]);
         Peserta::create([
             'rapat_id' => 1,
             'nama' => 'Andi Kumala',
             'jabatan' => 'Kabid',
-            'nip' => '987654321',
+            'nip' => '198002342311231312',
             'keterangan' => 'Perjalanan Dinas',
         ]);
         Peserta::create([
             'rapat_id' => 1,
             'nama' => 'Cecep',
             'jabatan' => 'SubKoordinator',
-            'nip' => '112233e45',
+            'nip' => '199002040311211311',
             'keterangan' => 'Sakit',
         ]);
     }
