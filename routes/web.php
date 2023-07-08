@@ -9,8 +9,6 @@ use App\Http\Controllers\NotulenController;
 use App\Http\Controllers\PesertaController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\RapatController;
-use App\Models\Notulen;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*

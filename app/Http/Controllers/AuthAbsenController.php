@@ -15,6 +15,8 @@ class AuthAbsenController extends Controller
 {
     public function index()
     {
+        if (session()->has('isLogin')) return redirect('notulen');
+
         return view('auth.absen', [
             'title' => 'Absensi',
             'divisi' => Divisi::all(),

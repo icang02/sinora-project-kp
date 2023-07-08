@@ -40,7 +40,7 @@ class NotulenController extends Controller
             }
 
             session(['isLogin' => $rapat->kode]);
-            return redirect()->intended("notulen/$rapat->kode");
+            return redirect("notulen/$rapat->kode");
         } else {
             return back()->with('danger', 'Kode rapat salah atau rapat tidak ditemukan.')->withInput();
         }

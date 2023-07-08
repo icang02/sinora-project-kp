@@ -9,6 +9,8 @@ class AuthController extends Controller
 {
     public function login()
     {
+        if (session()->has('isLogin')) return redirect("notulen");
+        
         return view('auth.login', [
             'title' => 'Login',
         ]);
