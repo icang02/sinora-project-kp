@@ -27,6 +27,7 @@ class DokumentasiController extends Controller
         //     'max' => 'Ukuran file maksimal 5MB.',
         // ]);
 
+        // dd($rapatId);
         $fotos = $request->file('foto');
         foreach ($fotos as $foto) {
             $img = $foto->store('dokumentasi');

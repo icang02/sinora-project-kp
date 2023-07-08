@@ -20,22 +20,13 @@ class UserSeeder extends Seeder
             'name' => 'Administrator',
             'email' => 'admin@gmail.com',
             'level' => 'Administrator',
-            'password' => Hash::make('sinora2023'),
+            'password' => Hash::make('admin'),
         ]);
         User::create([
             'name' => 'Pegawai',
             'email' => 'pegawai@gmail.com',
             'level' => 'Pegawai',
-            'password' => Hash::make('pegawai'),
+            'password' => Hash::make('admin'),
         ]);
-
-        // for ($i = 0; $i < 3; $i++) {
-        //     User::create([
-        //         'name' => 'Operator',
-        //         'email' => Str::random() . '@gmail.com',
-        //         'level' => 'Pegawai',
-        //         'password' => Hash::make('user'),
-        //     ]);
-        // }
     }
 }
